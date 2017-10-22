@@ -64,12 +64,12 @@ body {
 }
 
 .footer {
-  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
-  padding: 1rem;
-  background-color: #efefef;
+  padding-top: 2rem;
+  background-color: #f5f6fa;
+  color: #93A3BC;
   text-align: center;
 }
 .navbar {
