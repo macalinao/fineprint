@@ -79,6 +79,9 @@ class App extends Component<Props, State> {
             <div className="simulation"></div>
           </div>
         </div>
+        <div className="footer">
+          Powered by MasterCard Blockchain
+        </div>
       </div>
     );
   }
