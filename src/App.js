@@ -471,9 +471,7 @@ class App extends Component<Props, State> {
             </div>
           </div>
         </div>
-        <div className="container">
-          {view}
-        </div>
+        <div className="container">{view}</div>
         <div className="footer">Powered by MasterCard Blockchain</div>
       </div>
     );
