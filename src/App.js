@@ -12,10 +12,12 @@ import Navbar from "./Navbar";
 import Participants from "./Participants";
 import Highcharts from "highcharts";
 import ReactHighcharts from "react-highcharts";
+import * as JsDiff from "diff";
 
 type Props = {};
 
 type State = {
+  oldCode: string,
   code: string,
   inputs: Array<Input>,
   sourceOutputs: Array<Output>,
@@ -141,6 +143,7 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      oldCode: DEFAULT_CONTRACT,
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
       recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
@@ -460,6 +463,40 @@ class App extends Component<Props, State> {
     );
   }
 
+  _renderDiff() {
+    const diff = JsDiff.diffLines(this.state.oldCode, this.state.code);
+    console.log(diff);
+    return (
+      <div className="diffPage">
+        <button className="publish">Publish new contract</button>
+        <div className="sideBySide">
+          <div className="oldCode">
+            <h2>Old Code</h2>
+            <div className="unformatted">{this.state.oldCode}</div>
+          </div>
+          <div className="newCode">
+            <h2>Diff</h2>
+            <div className="unformatted">
+              {diff.map(part => {
+                return (
+                  <div
+                    className={
+                      "part " +
+                      (part.added ? "added " : "") +
+                      (part.removed ? "removed" : "")
+                    }
+                  >
+                    {part.value}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let view = null;
     if (this.state.selectedTab === "selector") {
@@ -469,6 +506,13 @@ class App extends Component<Props, State> {
         <div>
           <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
           {this._renderSimulation()}
+        </div>
+      );
+    } else if (this.state.selectedTab === "diff") {
+      view = (
+        <div>
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          {this._renderDiff()}
         </div>
       );
     } else {

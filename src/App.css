@@ -133,7 +133,8 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
-.container, .containert {
+.container,
+.containert {
   width: 1000px;
   margin: 0px auto;
 }
@@ -551,7 +552,8 @@ input {
   flex-grow: 1;
 }
 
-.jiandong, .notif {
+.jiandong,
+.notif {
   height: 40px;
 }
 
@@ -617,4 +619,54 @@ input {
   font-size: 30px;
   font-weight: normal;
   margin-bottom: 40px;
+}
+
+.publish {
+  background-color: #4880ff;
+  border-radius: 15px;
+  color: white;
+  padding: 15px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  border: none;
+  margin-bottom: 20px;
+}
+
+.diffPage {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.sideBySide {
+  display: flex;
+  flex-direction: row;
+}
+
+.oldCode {
+  width: 45%;
+  margin-right: 50px;
+}
+
+.newCode {
+  flex-grow: 1;
+}
+
+.unformatted {
+  width: 100%;
+  font-family: "Courier New", monospace;
+  white-space: pre;
+  background-color: #eee;
+  padding: 10px;
+}
+
+.unformatted .part {
+  width: 100%;
+}
+
+.part.added {
+  background-color: lightgreen;
+}
+
+.part.removed {
+  background-color: pink;
 }

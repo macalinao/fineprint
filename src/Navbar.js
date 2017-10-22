@@ -22,6 +22,12 @@ const Navbar = ({ selectedTab, setTab }: Props) => {
       >
         Edit Contract
       </a>
+      <a
+        onClick={() => setTab("diff")}
+        className={selectedTab === "diff" ? "selected" : ""}
+      >
+        Diff
+      </a>
     </div>
   );
 };
