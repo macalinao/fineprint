@@ -3,11 +3,17 @@
 import React from "react";
 import type { Input } from "./runContract";
 
-const InputComponent = ({ input, onRemove }: { input: Input, onRemove: any}) => {
+const InputComponent = ({
+  input,
+  onRemove
+}: {
+  input: Input,
+  onRemove: any
+}) => {
   return (
     <div>
       <h3>{input.name}</h3>
-      <button onClick = {onRemove}>Remove</button>
+      <button onClick={onRemove}>Remove</button>
     </div>
   );
 };
@@ -23,7 +29,6 @@ type State = {
 };
 
 class Inputs extends React.Component<Props, State> {
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -40,14 +45,17 @@ class Inputs extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        {this.props.inputs.map(input => <InputComponent input={input} onRemove={this.props.onRemove} />)}
+        {this.props.inputs.map(input => (
+          <InputComponent input={input} onRemove={this.props.onRemove} />
+        ))}
         <div>
           <p>Add Input:</p>
-          <input 
-          name="nameInput"
-          value = {this.state.inputName}
-          onChange = {this.onNameChange}/> 
-          <button onClick = {this.props.addInput}> Add </button>
+          <input
+            name="nameInput"
+            value={this.state.inputName}
+            onChange={this.onNameChange}
+          />
+          <button onClick={this.props.addInput}> Add </button>
         </div>
       </div>
     );

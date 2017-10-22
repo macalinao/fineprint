@@ -7,11 +7,13 @@ import Inputs from "./Inputs";
 import InputSliders from "./InputSliders";
 import "./App.css";
 import runContract from "./runContract";
+import Navbar from "./Navbar";
 
 type Props = {};
 
 type State = {
-  code: string
+  code: string,
+  selectedTab: string
 };
 
 const DEFAULT_CONTRACT = `
@@ -38,7 +40,8 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      code: DEFAULT_CONTRACT
+      code: DEFAULT_CONTRACT,
+      selectedTab: "simulation"
     };
   }
 
@@ -65,6 +68,12 @@ class App extends Component<Props, State> {
     });
   };
 
+  setTab = (tab: string) => {
+    this.setState({
+      selectedTab: tab
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -74,9 +83,10 @@ class App extends Component<Props, State> {
           <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
           <Inputs inputs={[]} />
         </p> */}
-          <div className="content">
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          <div className="row">
             <InputSliders inputs={this.inputs} />
-            <div className="simulation"></div>
+            <div className="simulation" />
           </div>
         </div>
       </div>
