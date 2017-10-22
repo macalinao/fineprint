@@ -155,25 +155,28 @@ class App extends Component<Props, State> {
 
   makeTransaction = () => {
     let dat = {
-      "to": "tejas",
-      "amount": 4000,
-      "from": "ian"
-    }, headers = {
-      "Content-Type": "application/json",
-      "charset": "utf-8"
-    };
+        to: "tejas",
+        amount: 4000,
+        from: "ian"
+      },
+      headers = {
+        "Content-Type": "application/json",
+        charset: "utf-8"
+      };
 
-    let bDat = new Blob([JSON.stringify(dat)], {type: "application/json"});
+    let bDat = new Blob([JSON.stringify(dat)], { type: "application/json" });
 
-    fetch("localhost:5000/transactions", bDat).then((response) => {
-      if(response.ok) {
-        return response.blob();
-      }
-      throw new Error("Network response not ok");
-    }).then((myBlob) => {
-      console.log(URL.createObjectURL(myBlob));
-    });
-  }
+    fetch("localhost:5000/transactions", bDat)
+      .then(response => {
+        if (response.ok) {
+          return response.blob();
+        }
+        throw new Error("Network response not ok");
+      })
+      .then(myBlob => {
+        console.log(URL.createObjectURL(myBlob));
+      });
+  };
 
   fetchContractResults = () => {
     return runContract([], this.state.code);
@@ -468,7 +471,10 @@ class App extends Component<Props, State> {
     console.log(diff);
     return (
       <div className="diffPage">
-        <button className="publish">Publish new contract</button>
+        <div className="s4r">
+          <textarea placeholder="Write a description of the changes below..." />
+          <button className="publish">Submit for review</button>
+        </div>
         <div className="sideBySide">
           <div className="oldCode">
             <h2>Old Code</h2>

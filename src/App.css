@@ -670,3 +670,18 @@ input {
 .part.removed {
   background-color: pink;
 }
+
+.s4r {
+  display: flex;
+  flex-direction: row;
+}
+
+.s4r textarea {
+  flex-grow: 1;
+  margin-right: 30px;
+  height: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  font-size: 14px;
+}
