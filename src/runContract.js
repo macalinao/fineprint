@@ -10,28 +10,22 @@ export type Input = {
 export type Output = {
   name: string,
   address: string,
-  outputType: "source" | "recipient",
-  value: number
+  outputType: "source" | "recipient"
 };
 
 export default function runContract(
   inputs: Array<Input>,
   code: string
-): Array<Output> {
+): Object {
+  const inputObj = {};
+  inputs.forEach(input => {
+    inputObj[input.name] = input.value;
+  });
   const randoVarName =
     "CONTRACT_RESULT_" +
     Math.random()
       .toString()
       .split(".")[1];
-  const args = inputs.map(input => {
-    switch (input.inputType) {
-      case "date":
-        return `new Date(${input.value.getTime()})`;
-      case "number":
-      case "dollars":
-        return input.value;
-    }
-  });
-  eval(`window['${randoVarName}'] = ${code}`);
-  return window[randoVarName];
+  // $FlowFixMe
+  return new Function("input", code)(inputObj) || {};
 }

@@ -10,6 +10,8 @@ import "./App.css";
 import runContract from "./runContract";
 import Navbar from "./Navbar";
 import Participants from "./Participants";
+import Highcharts from "highcharts";
+import ReactHighcharts from "react-highcharts";
 
 type Props = {};
 
@@ -23,23 +25,27 @@ type State = {
 };
 
 const DEFAULT_CONTRACT = `
-  function(price, quantity) {
-    var total = price * quantity;
-    return [
-      {
-        name: 'bob',
-        value: total * 0.05
-      },
-      {
-        name: 'segment',
-        value: total * 0.95
-      },
-      {
-        name: 'client',
-        value: -total
-      }
-    ]
+  var total = input.price * input.quantity;
+  
+  var commission = 0.05;
+  if (input.quantity > 10) {
+      commission += 0.02;
   }
+  if (input.quantity > 50) {
+      commission += 0.03;
+  }
+  if (input.quantity > 100) {
+      commission += 0.05;
+  }
+  
+  return {
+    //inputs
+    'Andrew Tian': total * commission,
+    'R.C. Cola': total * (1 - commission),
+    //outputs
+    'Segment Inc': total
+  }
+
 `;
 
 const DEFAULT_INPUTS = [
@@ -57,14 +63,88 @@ const DEFAULT_INPUTS = [
   }
 ];
 
+const DEFAULT_RECIPIENT_OUTPUTS = [
+  {
+    name: "Andrew Tian",
+    address: "1btcalskjdlksajdlsa",
+    outputType: "recipient"
+  },
+  {
+    name: "R.C. Cola",
+    address: "3btcalskjdlksajdlsa",
+    outputType: "recipient"
+  }
+];
+
+const DEFAULT_SOURCE_OUTPUTS = [
+  {
+    name: "Segment Inc",
+    address: "4btcalskjdlksajdlsa",
+    outputType: "source"
+  }
+];
+
+const fmtMoney = (money: number) => {
+  return "$" + (money || 0).toFixed(2);
+};
+
+class ParticipantPie extends Component<{ data: Array<*> }> {
+  render() {
+    const { data } = this.props;
+    return (
+      <ReactHighcharts
+        config={{
+          title: {
+            text: ""
+          },
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: "pie"
+          },
+          tooltip: {
+            pointFormat: "<b>{point.percentage:.1f}%</b> (${point.y:.2f})"
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: "pointer",
+              size: "75%",
+              dataLabels: {
+                enabled: true,
+                format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+                style: {
+                  color:
+                    (Highcharts.theme && Highcharts.theme.contrastTextColor) ||
+                    "black"
+                }
+              }
+            }
+          },
+          series: [
+            {
+              name: "Share",
+              colorByPoint: true,
+              data: data
+            }
+          ]
+        }}
+        ref={"chart"}
+        style={{ width: "00%", height: "80%", position: "relative" }}
+      />
+    );
+  }
+}
+
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
-      recipientOutputs: [],
-      sourceOutputs: [],
+      recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
+      sourceOutputs: DEFAULT_SOURCE_OUTPUTS,
       selectedTab: "simulation",
       selectedEditorTab: "variables"
     };
@@ -82,16 +162,15 @@ class App extends Component<Props, State> {
 
   addInput = (input: Input) => {
     const inputIndex = this.state.inputs.findIndex(i => i.name === input.name);
-    if(inputIndex == -1) {
+    if (inputIndex == -1) {
       this.state.inputs[this.state.inputs.length] = {
         name: input.name,
         inputType: "number",
         value: 0.0,
         max: 0.0
       };
-    }
-    else {
-      alert("There is a duplicate variable. Cannot add. ")
+    } else {
+      alert("There is a duplicate variable. Cannot add. ");
     }
     this.forceUpdate();
   };
@@ -217,6 +296,26 @@ class App extends Component<Props, State> {
   }
 
   _renderSimulation() {
+    const date = new Date();
+    const fmt =
+      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+
+    const contractz = runContract(this.state.inputs, this.state.code);
+
+    const recipientPie = this.state.recipientOutputs.map(r => {
+      return {
+        name: r.name,
+        y: contractz[r.name]
+      };
+    });
+
+    const sourcePie = this.state.sourceOutputs.map(r => {
+      return {
+        name: r.name,
+        y: contractz[r.name]
+      };
+    });
+
     return (
       <div className="row">
         <InputSliders
@@ -224,7 +323,45 @@ class App extends Component<Props, State> {
           onNewValue={this.onNewInputValue}
           onSliderChange={this.onSliderChange}
         />
-        <div className="simulation" />
+        <div className="simulation">
+          <h2>Summary</h2>
+          <p>{fmt}</p>
+
+          <div className="simParticipants">
+            <div className="payees">
+              <h3>Payees</h3>
+              <ParticipantPie data={recipientPie} />
+              <ul>
+                {this.state.recipientOutputs.map(r => {
+                  return (
+                    <li>
+                      {r.name} -{" "}
+                      <span className="money">
+                        {fmtMoney(contractz[r.name])}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="payors">
+              <h3>Payors</h3>
+              <ParticipantPie data={sourcePie} />
+              <ul>
+                {this.state.sourceOutputs.map(r => {
+                  return (
+                    <li>
+                      {r.name} -{" "}
+                      <span className="money">
+                        ({fmtMoney(-contractz[r.name])})
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

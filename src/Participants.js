@@ -20,11 +20,11 @@ const SELECTIONS: Array<Selection> = [
     address: "2btcalskjdlksajdlsa"
   },
   {
-    name: "Tian the Man",
+    name: "R.C. Cola",
     address: "3btcalskjdlksajdlsa"
   },
   {
-    name: "Segment inc",
+    name: "Segment Inc",
     address: "4btcalskjdlksajdlsa"
   }
 ];
@@ -68,6 +68,7 @@ const ParticipantSelector = ({
       onChange={onSelect}
       optionComponent={ParticipantOption}
       options={selections}
+      searchable={false}
       value={participant}
       valueComponent={ParticipantValue}
     />

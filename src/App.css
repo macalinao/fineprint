@@ -90,7 +90,6 @@ body {
 
 .simulation {
   background-color: #ffffff;
-  height: 100px;
   flex-grow: 1;
 }
 
@@ -276,4 +275,21 @@ h4 {
 
 input {
 
+}
+
+.simParticipants {
+  display: flex;
+  flex-direction: row;
+}
+
+.simParticipants > div {
+  width: 50%;
+}
+
+.payees .money {
+  color: green;
+}
+
+.payors .money {
+  color: red;
 }
