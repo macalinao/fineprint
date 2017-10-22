@@ -28,7 +28,7 @@ type State = {
 
 const DEFAULT_CONTRACT = `
   var total = input.price * input.quantity;
-  
+
   var commission = 0.05;
   if (input.quantity > 10) {
       commission += 0.02;
@@ -39,7 +39,7 @@ const DEFAULT_CONTRACT = `
   if (input.quantity > 100) {
       commission += 0.05;
   }
-  
+
   return {
     //inputs
     'Andrew Tian': total * commission,
@@ -108,14 +108,18 @@ class ParticipantPie extends Component<{ data: Array<*> }> {
           tooltip: {
             pointFormat: "<b>{point.percentage:.1f}%</b> (${point.y:.2f})"
           },
+          legend: {
+            itemStyle: null
+          },
           plotOptions: {
             pie: {
               allowPointSelect: true,
               cursor: "pointer",
-              size: "75%",
+              size: '75%',
               dataLabels: {
                 enabled: true,
-                format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+                // distance: -15,
+                format: "<b>{point.name}</b>:<br>{point.percentage:.1f} %",
                 style: {
                   color:
                     (Highcharts.theme && Highcharts.theme.contrastTextColor) ||
