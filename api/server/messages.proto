@@ -1,0 +1,8 @@
+syntax = "proto3";
+package TX67;
+
+message Transaction {
+	string fromAddr = 1;
+	string toAddr = 2;
+	int64 amount = 3;
+}
