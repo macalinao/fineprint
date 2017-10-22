@@ -412,22 +412,22 @@ class App extends Component<Props, State> {
         <h1>Select one</h1>
         <h2>template to get started</h2>
         <div className="templates">
-          <div className="template">
+          <div className="template" onClick={() => this.setTab("simulation")}>
             <img src="/commissions.png" />
             <h3>Commissions</h3>
             <p>payment of services rendered or products sold</p>
           </div>
-          <div className="template">
+          <div className="template" onClick={() => this.setTab("simulation")}>
             <img src="/fixedprice.png" />
             <h3>Fixed Price</h3>
             <p>the seller and buyer agree on a fixed price</p>
           </div>
-          <div className="template">
+          <div className="template" onClick={() => this.setTab("simulation")}>
             <img src="/reimburse.png" />
             <h3>Reimburse</h3>
             <p>seller reimburses buyer based on certain metrics</p>
           </div>
-          <div className="template">
+          <div className="template" onClick={() => this.setTab("simulation")}>
             <img src="/unitprice.png" />
             <h3>Unit Price</h3>
             <p>hourly rate contracts common for freelancers</p>
