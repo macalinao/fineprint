@@ -39,7 +39,6 @@ body {
 
 .simulation {
   background-color: #ffffff;
-  height: 100px;
   flex-grow: 1;
 }
 
@@ -129,4 +128,21 @@ body {
 .participantOption {
   display: inline-block;
   position: "relative";
+}
+
+.simParticipants {
+  display: flex;
+  flex-direction: row;
+}
+
+.simParticipants > div {
+  width: 50%;
+}
+
+.payees .money {
+  color: green;
+}
+
+.payors .money {
+  color: red;
 }

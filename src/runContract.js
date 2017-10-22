@@ -10,14 +10,13 @@ export type Input = {
 export type Output = {
   name: string,
   address: string,
-  outputType: "source" | "recipient",
-  value: number
+  outputType: "source" | "recipient"
 };
 
 export default function runContract(
   inputs: Array<Input>,
   code: string
-): Array<Output> {
+): Object {
   const inputObj = {};
   inputs.forEach(input => {
     inputObj[input.name] = input.value;
@@ -28,5 +27,5 @@ export default function runContract(
       .toString()
       .split(".")[1];
   // $FlowFixMe
-  return new Function("input", code)(inputObj);
+  return new Function("input", code)(inputObj) || {};
 }

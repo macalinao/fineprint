@@ -27,7 +27,7 @@ const DEFAULT_CONTRACT = `
   return {
     //inputs
     'Andrew Tian': total * 0.05,
-    'Tejas Manohar': total * 0.95,
+    'R.C. Cola': total * 0.95,
     //outputs
     'Segment Inc': total
   }
@@ -48,14 +48,39 @@ const DEFAULT_INPUTS = [
   }
 ];
 
+const DEFAULT_RECIPIENT_OUTPUTS = [
+  {
+    name: "Andrew Tian",
+    address: "1btcalskjdlksajdlsa",
+    outputType: "recipient"
+  },
+  {
+    name: "R.C. Cola",
+    address: "3btcalskjdlksajdlsa",
+    outputType: "recipient"
+  }
+];
+
+const DEFAULT_SOURCE_OUTPUTS = [
+  {
+    name: "Segment Inc",
+    address: "4btcalskjdlksajdlsa",
+    outputType: "source"
+  }
+];
+
+const fmtMoney = (money: number) => {
+  return "$" + (money || 0).toFixed(2);
+};
+
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
-      recipientOutputs: [],
-      sourceOutputs: [],
+      recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
+      sourceOutputs: DEFAULT_SOURCE_OUTPUTS,
       selectedTab: "simulation",
       selectedEditorTab: "variables"
     };
@@ -205,6 +230,12 @@ class App extends Component<Props, State> {
   }
 
   _renderSimulation() {
+    const date = new Date();
+    const fmt =
+      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+
+    const contractz = runContract(this.state.inputs, this.state.code);
+
     return (
       <div className="row">
         <InputSliders
@@ -213,7 +244,42 @@ class App extends Component<Props, State> {
           onSliderChange={this.onSliderChange}
         />
         <div className="simulation">
-          {JSON.stringify(runContract(this.state.inputs, this.state.code))}
+          <h2>Summary</h2>
+          <p>{fmt}</p>
+
+          <div className="simParticipants">
+            <div className="payees">
+              <h3>Payees</h3>
+              <ul>
+                {this.state.recipientOutputs.map(r => {
+                  return (
+                    <li>
+                      {r.name} -{" "}
+                      <span className="money">
+                        {fmtMoney(contractz[r.name])}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="payors">
+              <h3>Payors</h3>
+              <ul>
+                {this.state.sourceOutputs.map(r => {
+                  return (
+                    <li>
+                      {r.name} -{" "}
+                      <span className="money">
+                        ({fmtMoney(-contractz[r.name])})
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+          {JSON.stringify()}
         </div>
       </div>
     );
