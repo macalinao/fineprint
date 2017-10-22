@@ -564,7 +564,6 @@ input {
 .simulation .bigDate {
   font-size: 26px;
   font-weight: bold;
-  margin-bottom: 35px;
 }
 
 .simulation h2 {
@@ -626,7 +625,7 @@ input {
   border-radius: 15px;
   color: white;
   padding: 15px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 16px;
   border: none;
   margin-bottom: 20px;
@@ -684,4 +683,26 @@ input {
   border-radius: 5px;
   resize: none;
   font-size: 14px;
+}
+
+.heads {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.heads .last {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.last button {
+  background-color: #4880ff;
+  border-radius: 15px;
+  color: white;
+  padding: 15px;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  border: none;
 }

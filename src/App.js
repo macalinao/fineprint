@@ -160,31 +160,34 @@ class App extends Component<Props, State> {
   makeTransaction = () => {
     let dat = {
       body: JSON.stringify({
-        "to": "tejas",
-        "amount": 4000,
-        "from": "ian"
+        to: "tejas",
+        amount: 4000,
+        from: "ian"
       }),
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "charset": "utf-8"
+        charset: "utf-8"
       }
-    }
+    };
+    alert("Contract request sent.");
 
     // let bDat = new Blob([JSON.stringify(dat)], {type: "application/json"});
 
     //console.log(JSON.stringify(dat));
 
-    fetch("http://62c437b5.ngrok.io/transactions", dat).then((response) => {
-      console.log("1");
-      if(response.ok) {
-        return response.blob();
-      }
-      throw new Error("Network response not ok");
-    }).then((myBlob) => {
-      console.log(URL.createObjectURL(myBlob));
-    });
-  }
+    fetch("http://62c437b5.ngrok.io/transactions", dat)
+      .then(response => {
+        console.log("1");
+        if (response.ok) {
+          return response.blob();
+        }
+        throw new Error("Network response not ok");
+      })
+      .then(myBlob => {
+        console.log(URL.createObjectURL(myBlob));
+      });
+  };
 
   fetchContractResults = () => {
     return runContract([], this.state.code);
@@ -369,9 +372,15 @@ class App extends Component<Props, State> {
           onSliderChange={this.onSliderChange}
         />
         <div className="simulation">
-          <button onClick={this.makeTransaction}> Send Funds </button>
-          <h2>Summary</h2>
-          <p className="bigDate">{fmt}</p>
+          <div className="heads">
+            <div className="first">
+              <h2>Summary</h2>
+              <p className="bigDate">{fmt}</p>
+            </div>
+            <div className="last">
+              <button onClick={this.makeTransaction}>Send Funds</button>
+            </div>
+          </div>
 
           <div className="simParticipants">
             <div className="payees">
@@ -490,7 +499,12 @@ class App extends Component<Props, State> {
       <div className="diffPage">
         <div className="s4r">
           <textarea placeholder="Write a description of the changes below..." />
-          <button className="publish">Submit for review</button>
+          <button
+            className="publish"
+            onClick={() => alert("Submitted to the blockchain.")}
+          >
+            Submit for review
+          </button>
         </div>
         <div className="sideBySide">
           <div className="oldCode">
