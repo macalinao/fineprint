@@ -4,6 +4,7 @@ import server.blockchain as blockchain
 from gevent import monkey
 from server.accountant import Accountant
 from datetime import datetime, timedelta
+from flask_cors import CORS, cross_origin
 import calendar
 
 
@@ -12,6 +13,7 @@ unixtime = calendar.timegm(d.utctimetuple())
 accountant = Accountant(start_at=unixtime)
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/transactions', methods=['POST'])
 def create_transaction():

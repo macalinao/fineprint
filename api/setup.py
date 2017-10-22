@@ -11,5 +11,6 @@ setup(
         'mastercard-blockchain==0.0.2',
         'protobuf==3.4.0',
         'gevent==1.2.2',
+        'flask-cors==3.0.3'
     ],
 )
