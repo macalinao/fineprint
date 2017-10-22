@@ -152,11 +152,11 @@ class App extends Component<Props, State> {
 
   makeTransaction = () => {
     let dat = {
-      body: {
+      body: JSON.stringify({
         "to": "tejas",
         "amount": 4000,
         "from": "ian"
-      },
+      }),
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -166,7 +166,7 @@ class App extends Component<Props, State> {
 
     // let bDat = new Blob([JSON.stringify(dat)], {type: "application/json"});
 
-    // console.log(JSON.stringify(dat));
+    //console.log(JSON.stringify(dat));
 
     fetch("http://62c437b5.ngrok.io/transactions", dat).then((response) => {
       console.log("1");
