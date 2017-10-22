@@ -93,7 +93,7 @@ class InputSlider extends Component<ISProps, ISState> {
           {value}
         </div>
         <Slider
-          defaultValue={input.value * 100 / (input.max || 1)}
+          value={input.value * 100 / (input.max || 1)}
           onChange={e => onSliderChange(input.name, e)}
         />
       </div>
