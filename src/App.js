@@ -28,26 +28,28 @@ type State = {
 
 const DEFAULT_CONTRACT = `
   var total = input.price * input.quantity;
+  var output = {
+    'Andrew Tian': 0,
+    'R.C. Cola': 0,
+    'Segment Inc': 0
+  }
 
-  var commission = 0.05;
-  if (input.quantity > 10) {
-      commission += 0.02;
-  }
-  if (input.quantity > 50) {
-      commission += 0.03;
-  }
   if (input.quantity > 100) {
-      commission += 0.05;
+    output['Andrew Tian'] = total * 0.10;
+    output['Segment Inc'] = total * 0.90;
+  }
+  else if (input.quantity > 50) {
+    output['Andrew Tian'] = total * 0.05;
+    output['Segment Inc'] = total * 0.95;
+  }
+  else if (input.quantity > 10) {
+    output['Andrew Tian'] = total * 0.02;
+    output['Segment Inc'] = total * 0.98;
   }
 
-  return {
-    //inputs
-    'Andrew Tian': total * commission,
-    'R.C. Cola': total * (1 - commission),
-    //outputs
-    'Segment Inc': total
-  }
+  output['R.C. Cola'] = total;
 
+  return output;
 `;
 
 const DEFAULT_INPUTS = [
@@ -72,16 +74,16 @@ const DEFAULT_RECIPIENT_OUTPUTS = [
     outputType: "recipient"
   },
   {
-    name: "R.C. Cola",
-    address: "3btcalskjdlksajdlsa",
+    name: "Segment Inc",
+    address: "4btcalskjdlksajdlsa",
     outputType: "recipient"
   }
 ];
 
 const DEFAULT_SOURCE_OUTPUTS = [
   {
-    name: "Segment Inc",
-    address: "4btcalskjdlksajdlsa",
+    name: "R.C. Cola",
+    address: "3btcalskjdlksajdlsa",
     outputType: "source"
   }
 ];

@@ -706,3 +706,23 @@ input {
   font-size: 16px;
   border: none;
 }
+
+.ce2 {
+  flex-grow: 1;
+  background-color: #fff;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.ce2 button {
+  font-size: 16px;
+  padding: 5px;
+  background-color: #eef;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+.statement {
+  margin-bottom: 20px;
+}
