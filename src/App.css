@@ -148,7 +148,7 @@ body {
   flex-direction: row;
 }
 
-.row > div {
+.row > div:first-child {
   margin-right: 20px;
 }
 
