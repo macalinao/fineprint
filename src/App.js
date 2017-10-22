@@ -98,7 +98,9 @@ class App extends Component<Props, State> {
   };
 
   _renderVariables() {
-    return <Inputs inputs={this.state.inputs} />;
+    return <Inputs inputs={this.state.inputs} 
+    onRemove = {this.onRemove}
+    addInput = {this.addInput}/>;
   }
 
   _renderParticipants() {
