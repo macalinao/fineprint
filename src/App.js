@@ -23,22 +23,13 @@ type State = {
 };
 
 const DEFAULT_CONTRACT = `
-  function(price, quantity) {
-    var total = price * quantity;
-    return [
-      {
-        name: 'bob',
-        value: total * 0.05
-      },
-      {
-        name: 'segment',
-        value: total * 0.95
-      },
-      {
-        name: 'client',
-        value: -total
-      }
-    ]
+  var total = input.price * input.quantity;
+  return {
+    //inputs
+    'Andrew Tian': total * 0.05,
+    'Tejas Manohar': total * 0.95,
+    //outputs
+    'Segment Inc': total
   }
 `;
 
@@ -82,16 +73,15 @@ class App extends Component<Props, State> {
 
   addInput = (input: Input) => {
     const inputIndex = this.state.inputs.findIndex(i => i.name === input.name);
-    if(inputIndex == -1) {
+    if (inputIndex == -1) {
       this.state.inputs[this.state.inputs.length] = {
         name: input.name,
         inputType: "number",
         value: 0.0,
         max: 0.0
       };
-    }
-    else {
-      alert("There is a duplicate variable. Cannot add. ")
+    } else {
+      alert("There is a duplicate variable. Cannot add. ");
     }
     this.forceUpdate();
   };
@@ -222,7 +212,9 @@ class App extends Component<Props, State> {
           onNewValue={this.onNewInputValue}
           onSliderChange={this.onSliderChange}
         />
-        <div className="simulation" />
+        <div className="simulation">
+          {JSON.stringify(runContract(this.state.inputs, this.state.code))}
+        </div>
       </div>
     );
   }
