@@ -491,3 +491,7 @@ button,
       }
 
     }
+.participantValue .address {
+  color: #ccc;
+  margin: 0;
+}

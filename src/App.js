@@ -16,7 +16,8 @@ type Props = {};
 type State = {
   code: string,
   inputs: Array<Input>,
-  outputs: Array<Output>,
+  sourceOutputs: Array<Output>,
+  recipientOutputs: Array<Output>,
   selectedTab: string,
   selectedEditorTab: string
 };
@@ -56,34 +57,14 @@ const DEFAULT_INPUTS = [
   }
 ];
 
-const DEFAULT_OUTPUTS = [
-  {
-    name: "Tejas Manohar",
-    address: "1btasdklsajdksajdksa",
-    outputType: "recipient",
-    value: 1000
-  },
-  {
-    name: "Bitcoin Buddies",
-    address: "1btasdklsajdksajdksa",
-    outputType: "recipient",
-    value: 9000
-  },
-  {
-    name: "Segment Inc",
-    address: "1btasdklsajdksajdksa",
-    outputType: "source",
-    value: 10000
-  }
-];
-
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
-      outputs: DEFAULT_OUTPUTS,
+      recipientOutputs: [],
+      sourceOutputs: [],
       selectedTab: "simulation",
       selectedEditorTab: "variables"
     };
@@ -176,9 +157,35 @@ class App extends Component<Props, State> {
     );
   }
 
-  _addOutput = (o: Output) => {
+  // doesnt add but actually changes
+  _addOutput = (outputType: string, o: ?Output) => {
+    const outputTypeKey =
+      outputType === "recipient" ? "recipientOutputs" : "sourceOutputs";
+    const outputs = this.state[outputTypeKey];
+
+    if (!o && outputs.length > 0) {
+      this.setState({
+        [outputTypeKey]: this.state[outputTypeKey].slice(
+          0,
+          this.state[outputTypeKey].length - 1
+        )
+      });
+      return;
+    }
     this.setState({
-      outputs: [...this.state.outputs, o]
+      [outputTypeKey]: [
+        ...this.state[outputTypeKey].slice(
+          0,
+          this.state[outputTypeKey].length - 1
+        ),
+        o
+      ]
+    });
+  };
+
+  _appendOutput = (o: Output) => {
+    this.setState({
+      [o.outputType + "Outputs"]: [...this.state[o.outputType + "Outputs"], o]
     });
   };
 
@@ -189,8 +196,10 @@ class App extends Component<Props, State> {
     } else {
       tab = (
         <Participants
-          outputs={this.state.outputs}
+          sourceOutputs={this.state.sourceOutputs}
+          recipientOutputs={this.state.recipientOutputs}
           addOutput={this._addOutput}
+          appendOutput={this._appendOutput}
         />
       );
     }
@@ -243,7 +252,9 @@ class App extends Component<Props, State> {
   };
 
   onNameChange = (oldName: string, newName: string) => {
-    const inputIndex = this.state.inputs.findIndex(input => input.name === oldName);
+    const inputIndex = this.state.inputs.findIndex(
+      input => input.name === oldName
+    );
     this.state.inputs[inputIndex].name = newName;
     this.forceUpdate();
   };
