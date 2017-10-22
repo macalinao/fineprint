@@ -408,7 +408,7 @@ class App extends Component<Props, State> {
 
   _renderSelector() {
     return (
-      <div>
+      <div className="selectorPage">
         <h1>Select one</h1>
         <h2>template to get started</h2>
         <div className="templates">
