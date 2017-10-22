@@ -32,3 +32,5 @@ const Inputs = ({ inputs }: Props) => {
     </div>
   );
 };
+
+export default Inputs;
