@@ -145,7 +145,7 @@ class App extends Component<Props, State> {
       inputs: DEFAULT_INPUTS,
       recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
       sourceOutputs: DEFAULT_SOURCE_OUTPUTS,
-      selectedTab: "simulation",
+      selectedTab: "selector",
       selectedEditorTab: "variables"
     };
   }
@@ -406,19 +406,59 @@ class App extends Component<Props, State> {
     this.forceUpdate();
   };
 
+  _renderSelector() {
+    return (
+      <div>
+        <h1>Select one</h1>
+        <h2>template to get started</h2>
+        <div className="templates">
+          <div className="template">
+            <img src="/commissions.png" />
+            <h3>Commissions</h3>
+            <p>payment of services rendered or products sold</p>
+          </div>
+          <div className="template">
+            <img src="/fixedprice.png" />
+            <h3>Fixed Price</h3>
+            <p>the seller and buyer agree on a fixed price</p>
+          </div>
+          <div className="template">
+            <img src="/reimburse.png" />
+            <h3>Reimburse</h3>
+            <p>seller reimburses buyer based on certain metrics</p>
+          </div>
+          <div className="template">
+            <img src="/unitprice.png" />
+            <h3>Unit Price</h3>
+            <p>hourly rate contracts common for freelancers</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     let view = null;
-    if (this.state.selectedTab === "simulation") {
-      view = this._renderSimulation();
+    if (this.state.selectedTab === "selector") {
+      view = this._renderSelector();
+    } else if (this.state.selectedTab === "simulation") {
+      view = (
+        <div>
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          {this._renderSimulation()}
+        </div>
+      );
     } else {
-      view = this._renderEditor();
+      view = (
+        <div>
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          {this._renderEditor()}
+        </div>
+      );
     }
     return (
       <div className="App">
-        <div className="container">
-          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
-          {view}
-        </div>
+        <div className="container">{view}</div>
         <div className="footer">Powered by MasterCard Blockchain</div>
       </div>
     );
