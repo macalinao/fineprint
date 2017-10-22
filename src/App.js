@@ -12,10 +12,12 @@ import Navbar from "./Navbar";
 import Participants from "./Participants";
 import Highcharts from "highcharts";
 import ReactHighcharts from "react-highcharts";
+import * as JsDiff from "diff";
 
 type Props = {};
 
 type State = {
+  oldCode: string,
   code: string,
   inputs: Array<Input>,
   sourceOutputs: Array<Output>,
@@ -141,6 +143,7 @@ class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      oldCode: DEFAULT_CONTRACT,
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
       recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
@@ -329,7 +332,16 @@ class App extends Component<Props, State> {
     const fmt =
       date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
 
-    const contractz = runContract(this.state.inputs, this.state.code);
+    let contractz = null;
+    try {
+      contractz = runContract(this.state.inputs, this.state.code);
+    } catch (e) {
+      contractz = runContract(this.state.inputs, this.state.oldCode);
+      alert("There was an error in your contract. Reverting.");
+      this.setState({
+        code: this.state.oldCode
+      });
+    }
 
     const recipientPie = this.state.recipientOutputs.map(r => {
       return {
@@ -442,25 +454,62 @@ class App extends Component<Props, State> {
         <h1>Select one</h1>
         <h2>template to get started</h2>
         <div className="templates">
-          <div className="template" onClick={() => this.setTab("simulation")}>
+          <div className="template" onClick={() => this.setTab("edit")}>
             <img src="/commissions.png" />
             <h3>Commissions</h3>
             <p>payment of services rendered or products sold</p>
           </div>
-          <div className="template" onClick={() => this.setTab("simulation")}>
+          <div className="template" onClick={() => this.setTab("edit")}>
             <img src="/fixedprice.png" />
             <h3>Fixed Price</h3>
             <p>the seller and buyer agree on a fixed price</p>
           </div>
-          <div className="template" onClick={() => this.setTab("simulation")}>
+          <div className="template" onClick={() => this.setTab("edit")}>
             <img src="/reimburse.png" />
             <h3>Reimburse</h3>
             <p>seller reimburses buyer based on certain metrics</p>
           </div>
-          <div className="template" onClick={() => this.setTab("simulation")}>
+          <div className="template" onClick={() => this.setTab("edit")}>
             <img src="/unitprice.png" />
             <h3>Unit Price</h3>
             <p>hourly rate contracts common for freelancers</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  _renderDiff() {
+    const diff = JsDiff.diffLines(this.state.oldCode, this.state.code);
+    console.log(diff);
+    return (
+      <div className="diffPage">
+        <div className="s4r">
+          <textarea placeholder="Write a description of the changes below..." />
+          <button className="publish">Submit for review</button>
+        </div>
+        <div className="sideBySide">
+          <div className="oldCode">
+            <h2>Old Code</h2>
+            <div className="unformatted">{this.state.oldCode}</div>
+          </div>
+          <div className="newCode">
+            <h2>Diff</h2>
+            <div className="unformatted">
+              {diff.map(part => {
+                return (
+                  <div
+                    className={
+                      "part " +
+                      (part.added ? "added " : "") +
+                      (part.removed ? "removed" : "")
+                    }
+                  >
+                    {part.value}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -476,6 +525,13 @@ class App extends Component<Props, State> {
         <div>
           <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
           {this._renderSimulation()}
+        </div>
+      );
+    } else if (this.state.selectedTab === "diff") {
+      view = (
+        <div>
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          {this._renderDiff()}
         </div>
       );
     } else {

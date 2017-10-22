@@ -1,5 +1,5 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
-
+api/virt_env
 # dependencies
 /node_modules
 
@@ -21,3 +21,6 @@ yarn-debug.log*
 yarn-error.log*
 
 *.pyc
+__pycache__
+
+server/server.egg-info
