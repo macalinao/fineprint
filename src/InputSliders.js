@@ -5,10 +5,6 @@ import type { Input } from "./runContract";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
-type Props = {
-  inputs: Array<Input>
-};
-
 const renderValue = (input: Input): string => {
   switch (input.inputType) {
     case "dollars":
@@ -20,22 +16,38 @@ const renderValue = (input: Input): string => {
   }
 };
 
-const InputSlider = ({ input }: { input: Input }) => {
+const InputSlider = ({
+  input,
+  onSliderChange
+}: {
+  input: Input,
+  onSliderChange: (string, number) => void
+}) => {
   return (
     <div>
       <div className="sliderInfo">
         <p className="label">{input.name}</p>
         <p className="value">{renderValue(input)}</p>
       </div>
-      <Slider />
+      <Slider
+        defaultValue={input.value * 100 / (input.max || 1)}
+        onChange={e => onSliderChange(input.name, e)}
+      />
     </div>
   );
 };
 
-const InputSliders = ({ inputs }: Props) => {
+type Props = {
+  inputs: Array<Input>,
+  onSliderChange: (string, number) => void
+};
+
+const InputSliders = ({ inputs, onSliderChange }: Props) => {
   return (
     <div className="inputSliders">
-      {inputs.map(input => <InputSlider input={input} />)}
+      {inputs.map(input => (
+        <InputSlider input={input} onSliderChange={onSliderChange} />
+      ))}
     </div>
   );
 };

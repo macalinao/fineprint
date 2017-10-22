@@ -1,5 +1,6 @@
 /* @flow */
 
+import type { Input } from "./runContract";
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import CodeEditor from "./CodeEditor";
@@ -13,6 +14,7 @@ type Props = {};
 
 type State = {
   code: string,
+  inputs: Array<Input>,
   selectedTab: string
 };
 
@@ -36,27 +38,30 @@ const DEFAULT_CONTRACT = `
   }
 `;
 
+const DEFAULT_INPUTS = [
+  {
+    name: "price",
+    inputType: "dollars",
+    value: 50.5,
+    max: 101
+  },
+  {
+    name: "quantity",
+    inputType: "number",
+    value: 100,
+    max: 200
+  }
+];
+
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       code: DEFAULT_CONTRACT,
+      inputs: DEFAULT_INPUTS,
       selectedTab: "simulation"
     };
   }
-
-  inputs = [
-    {
-      name: "price",
-      inputType: "dollars",
-      value: 50.5
-    },
-    {
-      name: "quantity",
-      inputType: "number",
-      value: 100
-    }
-  ];
 
   fetchContractResults = () => {
     return runContract([], this.state.code);
@@ -86,11 +91,25 @@ class App extends Component<Props, State> {
   _renderSimulation() {
     return (
       <div className="row">
-        <InputSliders inputs={this.inputs} />
+        <InputSliders
+          inputs={this.state.inputs}
+          onSliderChange={this.onSliderChange}
+        />
         <div className="simulation" />
       </div>
     );
   }
+
+  onSliderChange = (name: string, value: number) => {
+    const input = this.state.inputs.find(input => input.name === name);
+    if (input && input.max) {
+      input.value = value / 100 * input.max;
+    }
+    // weird force update
+    this.setState({
+      inputs: this.state.inputs
+    });
+  };
 
   render() {
     let view = null;

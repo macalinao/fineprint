@@ -3,7 +3,8 @@
 export type Input = {
   name: string,
   inputType: "number" | "dollars" | "date",
-  value: any
+  value: any,
+  max: ?any
 };
 
 export type Output = {
