@@ -91,6 +91,7 @@ body {
 }
 
 .simulation {
+  padding: 20px 30px;
   background-color: #ffffff;
   flex-grow: 1;
 }
@@ -150,7 +151,7 @@ body {
   flex-direction: row;
 }
 
-.participants-def h2 {
+h2 {
   text-transform: uppercase;
   color: #898f9d;
   font-size: 16px;
@@ -159,7 +160,23 @@ body {
 }
 
 .participants-def .sources,
-.participants-def .recipients {
+.participants-def .recipients,
+h3 {
+  text-transform: uppercase;
+  color: #afb5c4;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.simParticipants ul {
+  height: 50px;
+  list-style: none;
+  padding-left: 0px;
+  margin: 0px;
+}
+
+.participants .sources,
+.participants .recipients {
   width: 45%;
 }
 
@@ -283,6 +300,10 @@ input {
 
 .simParticipants > div {
   width: 50%;
+}
+
+.money {
+  text-decoration: underline;
 }
 
 .payees .money {

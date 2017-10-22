@@ -131,7 +131,7 @@ class ParticipantPie extends Component<{ data: Array<*> }> {
           ]
         }}
         ref={"chart"}
-        style={{ width: "00%", height: "80%", position: "relative" }}
+        style={{ width: "00%", height: "200px", position: "relative" }}
       />
     );
   }
@@ -331,7 +331,6 @@ class App extends Component<Props, State> {
           <div className="simParticipants">
             <div className="payees">
               <h3>Payees</h3>
-              <ParticipantPie data={recipientPie} />
               <ul>
                 {this.state.recipientOutputs.map(r => {
                   return (
@@ -344,10 +343,10 @@ class App extends Component<Props, State> {
                   );
                 })}
               </ul>
+              <ParticipantPie data={recipientPie} />
             </div>
             <div className="payors">
               <h3>Payors</h3>
-              <ParticipantPie data={sourcePie} />
               <ul>
                 {this.state.sourceOutputs.map(r => {
                   return (
@@ -360,6 +359,7 @@ class App extends Component<Props, State> {
                   );
                 })}
               </ul>
+              <ParticipantPie data={sourcePie} />
             </div>
           </div>
         </div>
