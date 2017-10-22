@@ -2,12 +2,12 @@
 
 import React from "react";
 
-type Input = {
+type InputData = {
   name: string,
   t: string // type
 };
 
-const Input = (input: Input) => {
+const Input = ({ input }: { input: InputData }) => {
   return (
     <div>
       <h3>{input.name}</h3>
@@ -17,7 +17,7 @@ const Input = (input: Input) => {
 };
 
 type Props = {
-  inputs: array<Input>,
+  inputs: Array<InputData>,
   addInput: Input => void, // adds an input to the input list
   onRemove: string => void // takes in input name and removes it
 };
