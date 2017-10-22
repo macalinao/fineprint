@@ -9,6 +9,8 @@ export type Input = {
 
 export type Output = {
   name: string,
+  address: string,
+  outputType: "source" | "recipient",
   value: number
 };
 

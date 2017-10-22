@@ -91,7 +91,36 @@ body {
   color: #0f1b36;
 }
 
+.editorTab {
+  background-color: #fff;
+  padding: 15px;
+  width: 50%;
+}
+
 .editorTab .selector a {
   border: 1px solid #ccc;
   padding: 10px;
+  cursor: pointer;
+}
+
+.participants {
+  display: flex;
+  flex-direction: row;
+}
+
+.participants h2 {
+  text-transform: uppercase;
+  color: #afb5c4;
+  font-size: 16px;
+}
+
+.participants .sources, .participants .recipients {
+  width: 45%;
+}
+
+.participants .arrow {
+  background-image: url("/andrews_arrow.png");
+  width: 27px;
+  height: 146px;
+  margin: 60px 10px;
 }
