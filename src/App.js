@@ -129,6 +129,7 @@ class App extends Component<Props, State> {
         inputs={this.state.inputs}
         onRemove={this.onRemove}
         addInput={this.addInput}
+        onNameChange={this.onNameChange}
       />
     );
   }
@@ -172,7 +173,7 @@ class App extends Component<Props, State> {
   _renderEditor() {
     let tab = null;
     if (this.state.selectedEditorTab === "variables") {
-      tab = <Inputs inputs={this.state.inputs} />;
+      tab = this._renderVariables();
     } else {
       tab = <Participants outputs={this.state.outputs} />;
     }
@@ -222,6 +223,12 @@ class App extends Component<Props, State> {
     this.setState({
       inputs: this.state.inputs
     });
+  };
+
+  onNameChange = (oldName: string, newName: string) => {
+    const inputIndex = this.state.inputs.findIndex(input => input.name === oldName);
+    this.state.inputs[inputIndex].name = newName;
+    this.forceUpdate();
   };
 
   render() {

@@ -3,37 +3,19 @@
 import React from "react";
 import type { Input } from "./runContract";
 
-type InputCompProps = {
-  input: Input,
-  onRemove: string => void
-}
-
-type InputCompState = {
-  input: Input
-}
-
-class InputComponent extends Component<InputCompProps, InputCompState> {
-  constructor(props: InputCompProps) {
-    super(props);
-    this.state = {
-      
-    }
-  }
-}
-
 const InputComponent = ({
   input,
-  onRemove
+  onRemove,
+  onNameChange
 }: {
   input: Input,
-  onRemove: any
+  onRemove: string => void,
+  onNameChange: (string, string) => void
 }) => {
   return (
     <div>
       <input value={input.name}
-      onChange= {(event) => {
-        input.name = event.target.value;
-      }}/>
+      onChange= {(event) => onNameChange(input.name, event.target.value)}/>
       <button onClick={() => onRemove(input.name)}>Remove</button>
     </div>
   );
@@ -42,7 +24,8 @@ const InputComponent = ({
 type Props = {
   inputs: Array<Input>,
   addInput: Input => void, // adds an input to the input list
-  onRemove: string => void // takes in input name and removes it
+  onRemove: string => void, // takes in input name and removes it
+  onNameChange: (string, string) => void
 };
 
 type State = {
@@ -57,24 +40,17 @@ class Inputs extends React.Component<Props, State> {
     };
   }
 
-  onNameChange = (name: string) => {
-    this.setState({
-      inputName: name
-    });
-  };
-
   render() {
     return (
       <div>
         {this.props.inputs.map(input => (
-          <InputComponent input={input} onRemove={this.props.onRemove} />
+          <InputComponent input={input} onRemove={this.props.onRemove} onNameChange={this.props.onNameChange}/>
         ))}
         <div>
           <p>Add Input:</p>
           <input
             name="nameInput"
             value={this.state.inputName}
-            onChange={(event) => this.onNameChange(event.target.value)}
           />
           <button onClick={this.props.addInput}> Add </button>
         </div>
