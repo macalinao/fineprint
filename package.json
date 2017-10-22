@@ -11,6 +11,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "flow && lint-staged"
+  },
+  "devDependencies": {
+    "flow": "^0.2.3",
+    "lint-staged": "^4.3.0",
+    "prettier": "^1.7.4"
+  },
+  "lint-staged": {
+    "*.js": ["prettier --write", "git add"],
+    "*.css": ["prettier --write", "git add"]
   }
 }
