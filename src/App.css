@@ -150,7 +150,7 @@ body {
 
 .participants-def h2 {
   text-transform: uppercase;
-  color: #afb5c4;
+  color: #898f9d;
   font-size: 16px;
   font-weight: 600;
   margin-bottom: 18px;
@@ -173,11 +173,6 @@ body {
   position: "relative";
 }
 
-.participantValue .address {
-  color: #ccc;
-  margin: 0;
-}
-
 .editorTab {
   padding: 30px 40px;
 
@@ -186,7 +181,8 @@ body {
 }
 
 .editorTab div > h4 {
-  color: #9198a0;
+  /*color: #9198a0;*/
+  color: #898f9d;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 10px;
@@ -263,6 +259,7 @@ body {
   text-transform: uppercase;
   font-weight: 600;
   color: #46505C;
+  margin-top: 8px;
 }
 
 .asdf {
@@ -292,4 +289,64 @@ input {
 
 .payors .money {
   color: red;
+}
+
+.Select-input {
+  display: none !important;
+}
+
+.participantValue, .participantOption {
+  padding: 0 9px;
+  border: solid 1px #e5e5e5;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.participantOption {
+  border: 0;
+  /*border-top: 1px solid #e5e5e5;*/
+  border-bottom: 1px solid #e5e5e5;
+  margin: 0;
+  border-radius: 0;
+}
+
+.participantObject:last-child {
+  border-bottom: none;
+}
+
+.participantOption p {
+  padding: 10px 0;
+}
+
+.participantValue {
+  padding: 10px 9px;
+}
+
+.participantValue .name {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.participantValue .address {
+  color: rgba(70, 80, 92, 0.53);
+}
+
+.participantValue .address, .participantOption span {
+  color: rgba(70, 80, 92, 0.53);
+  font-size: 15px;
+}
+
+.participantOption span {
+  padding-top: 4px;
+  display: inline-block;
+}
+
+.Select-control {
+  border: solid 1px #e5e5e5 !important;
+}
+
+.Select-control .participantValue {
+  border: 0;
+  margin: 0;
 }
