@@ -74,24 +74,38 @@ class App extends Component<Props, State> {
     });
   };
 
+  _renderEditor() {
+    return (
+      <div className="row">
+        <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
+        <Inputs inputs={[]} />
+      </div>
+    );
+  }
+
+  _renderSimulation() {
+    return (
+      <div className="row">
+        <InputSliders inputs={this.inputs} />
+        <div className="simulation" />
+      </div>
+    );
+  }
+
   render() {
+    let view = null;
+    if (this.state.selectedTab === "simulation") {
+      view = this._renderSimulation();
+    } else {
+      view = this._renderEditor();
+    }
     return (
       <div className="App">
         <div className="container">
-          {/* <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-          <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
-          <Inputs inputs={[]} />
-        </p> */}
           <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
-          <div className="row">
-            <InputSliders inputs={this.inputs} />
-            <div className="simulation" />
-          </div>
+          {view}
         </div>
-        <div className="footer">
-          Powered by MasterCard Blockchain
-        </div>
+        <div className="footer">Powered by MasterCard Blockchain</div>
       </div>
     );
   }
