@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "brace": "^0.10.0",
     "react": "^16.0.0",
+    "react-ace": "^5.4.0",
     "react-dom": "^16.0.0",
     "react-scripts": "1.0.14"
   },
@@ -20,7 +22,13 @@
     "prettier": "^1.7.4"
   },
   "lint-staged": {
-    "*.js": ["prettier --write", "git add"],
-    "*.css": ["prettier --write", "git add"]
+    "*.js": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.css": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
