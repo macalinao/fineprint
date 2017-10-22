@@ -11,22 +11,22 @@ const Navbar = ({ selectedTab, setTab }: Props) => {
   return (
     <div className="navbar">
       <a
-        onClick={() => setTab("simulation")}
-        className={selectedTab === "simulation" ? "selected" : ""}
-      >
-        Simulation
-      </a>
-      <a
         onClick={() => setTab("edit")}
         className={selectedTab === "edit" ? "selected" : ""}
       >
         Edit Contract
       </a>
       <a
+        onClick={() => setTab("simulation")}
+        className={selectedTab === "simulation" ? "selected" : ""}
+      >
+        Evaluate
+      </a>
+      <a
         onClick={() => setTab("diff")}
         className={selectedTab === "diff" ? "selected" : ""}
       >
-        Diff
+        Review and Submit
       </a>
     </div>
   );
