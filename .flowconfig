@@ -1,0 +1,17 @@
+[ignore]
+.*/build
+.*/config
+.*/node_modules
+.*/gulpfile.js
+.*/__generated__/.*
+
+[include]
+
+[libs]
+~SRC
+
+[options]
+module.name_mapper='^~SRC\/\(.*\)$' -> '<PROJECT_ROOT>/src/\1'
+module.name_mapper='^~SRC$' -> '<PROJECT_ROOT>/src'
+module.name_mapper='^isomorphic-style-loader\/\(.*\)$' -> '<PROJECT_ROOT>/node_modules/isomorphic-style-loader/\1'
+esproposal.decorators=ignore

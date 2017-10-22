@@ -15,7 +15,7 @@
     "precommit": "flow && lint-staged"
   },
   "devDependencies": {
-    "flow": "^0.2.3",
+    "flow-bin": "^0.57.3",
     "lint-staged": "^4.3.0",
     "prettier": "^1.7.4"
   },
