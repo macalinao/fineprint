@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { Input } from "./runContract";
+import type { Input, Output } from "./runContract";
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import CodeEditor from "./CodeEditor";
@@ -9,12 +9,14 @@ import InputSliders from "./InputSliders";
 import "./App.css";
 import runContract from "./runContract";
 import Navbar from "./Navbar";
+import Participants from "./Participants";
 
 type Props = {};
 
 type State = {
   code: string,
   inputs: Array<Input>,
+  outputs: Array<Output>,
   selectedTab: string,
   selectedEditorTab: string
 };
@@ -54,12 +56,34 @@ const DEFAULT_INPUTS = [
   }
 ];
 
+const DEFAULT_OUTPUTS = [
+  {
+    name: "Tejas Manohar",
+    address: "1btasdklsajdksajdksa",
+    outputType: "recipient",
+    value: 1000
+  },
+  {
+    name: "Bitcoin Buddies",
+    address: "1btasdklsajdksajdksa",
+    outputType: "recipient",
+    value: 9000
+  },
+  {
+    name: "Segment Inc",
+    address: "1btasdklsajdksajdksa",
+    outputType: "source",
+    value: 10000
+  }
+];
+
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
+      outputs: DEFAULT_OUTPUTS,
       selectedTab: "simulation",
       selectedEditorTab: "variables"
     };
@@ -83,13 +107,15 @@ class App extends Component<Props, State> {
       max: -1
     };
     this.forceUpdate();
-  }
+  };
 
   onRemove = (name: string) => {
-    this.setState({inputs:this.state.inputs.filter((i: Input) => {
-      return i.name != name;
-    })});
-  }
+    this.setState({
+      inputs: this.state.inputs.filter((i: Input) => {
+        return i.name != name;
+      })
+    });
+  };
 
   setTab = (tab: string) => {
     this.setState({
@@ -98,9 +124,13 @@ class App extends Component<Props, State> {
   };
 
   _renderVariables() {
-    return <Inputs inputs={this.state.inputs} 
-    onRemove = {this.onRemove}
-    addInput = {this.addInput}/>;
+    return (
+      <Inputs
+        inputs={this.state.inputs}
+        onRemove={this.onRemove}
+        addInput={this.addInput}
+      />
+    );
   }
 
   _renderParticipants() {
@@ -142,9 +172,9 @@ class App extends Component<Props, State> {
   _renderEditor() {
     let tab = null;
     if (this.state.selectedEditorTab === "variables") {
-      tab = this._renderVariables();
+      tab = <Inputs inputs={this.state.inputs} />;
     } else {
-      tab = this._renderParticipants();
+      tab = <Participants outputs={this.state.outputs} />;
     }
     return (
       <div className="row">
