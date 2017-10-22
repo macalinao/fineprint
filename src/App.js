@@ -73,6 +73,22 @@ class App extends Component<Props, State> {
     });
   };
 
+  addInput = (input: Input) => {
+    this.state.inputs[this.state.inputs.length] = {
+      name: "",
+      inputType: "number",
+      value: 0.0,
+      max: -1
+    };
+    this.forceUpdate();
+  }
+
+  onRemove = (name: string) => {
+    this.setState({inputs:this.state.inputs.filter((i: Input) => {
+      return i.name != name;
+    })});
+  }
+
   setTab = (tab: string) => {
     this.setState({
       selectedTab: tab
@@ -83,7 +99,9 @@ class App extends Component<Props, State> {
     return (
       <div className="row">
         <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
-        <Inputs inputs={[]} />
+        <Inputs inputs= {this.state.inputs} 
+        addInput = {this.addInput}
+        onRemove = {this.onRemove}/>
       </div>
     );
   }

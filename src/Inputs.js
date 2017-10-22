@@ -13,7 +13,7 @@ const InputComponent = ({
   return (
     <div>
       <h3>{input.name}</h3>
-      <button onClick={onRemove}>Remove</button>
+      <button onClick={() => onRemove(input.name)}>Remove</button>
     </div>
   );
 };
@@ -53,7 +53,7 @@ class Inputs extends React.Component<Props, State> {
           <input
             name="nameInput"
             value={this.state.inputName}
-            onChange={this.onNameChange}
+            onChange={(event) => this.onNameChange(event.target.value)}
           />
           <button onClick={this.props.addInput}> Add </button>
         </div>
