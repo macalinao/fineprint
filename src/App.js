@@ -178,10 +178,6 @@ class App extends Component<Props, State> {
       });
   };
 
-  fetchContractResults = () => {
-    return runContract([], this.state.code);
-  };
-
   onCodeChange = (code: string) => {
     this.setState({
       code: code
@@ -328,7 +324,16 @@ class App extends Component<Props, State> {
     const fmt =
       date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
 
-    const contractz = runContract(this.state.inputs, this.state.code);
+    let contractz = null;
+    try {
+      contractz = runContract(this.state.inputs, this.state.code);
+    } catch (e) {
+      contractz = runContract(this.state.inputs, this.state.oldCode);
+      alert("There was an error in your contract. Reverting.");
+      this.setState({
+        code: this.state.oldCode
+      });
+    }
 
     const recipientPie = this.state.recipientOutputs.map(r => {
       return {
