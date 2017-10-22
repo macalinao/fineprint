@@ -131,7 +131,7 @@ class ParticipantPie extends Component<{ data: Array<*> }> {
           ]
         }}
         ref={"chart"}
-        style={{ width: "00%", height: "80%", position: "relative" }}
+        style={{ width: "00%", height: "200px", position: "relative" }}
       />
     );
   }
@@ -145,7 +145,7 @@ class App extends Component<Props, State> {
       inputs: DEFAULT_INPUTS,
       recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
       sourceOutputs: DEFAULT_SOURCE_OUTPUTS,
-      selectedTab: "simulation",
+      selectedTab: "selector",
       selectedEditorTab: "variables"
     };
   }
@@ -228,9 +228,8 @@ class App extends Component<Props, State> {
         <a
           onClick={() => this._setEditorTab("participants")}
           className={
-            "participants " + (selectedEditorTab === "participants"
-              ? "selected"
-              : "")
+            "participants " +
+            (selectedEditorTab === "participants" ? "selected" : "")
           }
         >
           Participants
@@ -326,12 +325,11 @@ class App extends Component<Props, State> {
         />
         <div className="simulation">
           <h2>Summary</h2>
-          <p>{fmt}</p>
+          <p className="bigDate">{fmt}</p>
 
           <div className="simParticipants">
             <div className="payees">
               <h3>Payees</h3>
-              <ParticipantPie data={recipientPie} />
               <ul>
                 {this.state.recipientOutputs.map(r => {
                   return (
@@ -344,10 +342,10 @@ class App extends Component<Props, State> {
                   );
                 })}
               </ul>
+              <ParticipantPie data={recipientPie} />
             </div>
             <div className="payors">
               <h3>Payors</h3>
-              <ParticipantPie data={sourcePie} />
               <ul>
                 {this.state.sourceOutputs.map(r => {
                   return (
@@ -360,6 +358,7 @@ class App extends Component<Props, State> {
                   );
                 })}
               </ul>
+              <ParticipantPie data={sourcePie} />
             </div>
           </div>
         </div>
@@ -405,14 +404,57 @@ class App extends Component<Props, State> {
     );
     this.state.inputs[inputIndex].inputType = newType;
     this.forceUpdate();
+  };
+
+  _renderSelector() {
+    return (
+      <div className="selectorPage">
+        <h1>Select one</h1>
+        <h2>template to get started</h2>
+        <div className="templates">
+          <div className="template" onClick={() => this.setTab("simulation")}>
+            <img src="/commissions.png" />
+            <h3>Commissions</h3>
+            <p>payment of services rendered or products sold</p>
+          </div>
+          <div className="template" onClick={() => this.setTab("simulation")}>
+            <img src="/fixedprice.png" />
+            <h3>Fixed Price</h3>
+            <p>the seller and buyer agree on a fixed price</p>
+          </div>
+          <div className="template" onClick={() => this.setTab("simulation")}>
+            <img src="/reimburse.png" />
+            <h3>Reimburse</h3>
+            <p>seller reimburses buyer based on certain metrics</p>
+          </div>
+          <div className="template" onClick={() => this.setTab("simulation")}>
+            <img src="/unitprice.png" />
+            <h3>Unit Price</h3>
+            <p>hourly rate contracts common for freelancers</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   render() {
     let view = null;
-    if (this.state.selectedTab === "simulation") {
-      view = this._renderSimulation();
+    if (this.state.selectedTab === "selector") {
+      view = this._renderSelector();
+    } else if (this.state.selectedTab === "simulation") {
+      view = (
+        <div>
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          {this._renderSimulation()}
+        </div>
+      );
     } else {
-      view = this._renderEditor();
+      view = (
+        <div>
+          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
+          {this._renderEditor()}
+        </div>
+      );
     }
     return (
       <div className="App">

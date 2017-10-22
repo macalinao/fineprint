@@ -1,16 +1,84 @@
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
   margin: 0;
   padding: 0;
   border: 0;
@@ -19,36 +87,46 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
   display: block;
 }
 body {
   line-height: 1;
 }
-ol, ul {
+ol,
+ul {
   list-style: none;
 }
-blockquote, q {
+blockquote,
+q {
   quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-  content: '';
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
   content: none;
 }
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-*, ::after, ::before {
-    box-sizing: border-box;
+*,
+::after,
+::before {
+  box-sizing: border-box;
 }
-
-
-
-
-
 
 body {
   background-color: #f5f6fa;
@@ -91,6 +169,7 @@ body {
 }
 
 .simulation {
+  padding: 20px 30px;
   background-color: #ffffff;
   flex-grow: 1;
 }
@@ -150,7 +229,7 @@ body {
   flex-direction: row;
 }
 
-.participants-def h2 {
+h2 {
   text-transform: uppercase;
   color: #898f9d;
   font-size: 16px;
@@ -159,7 +238,23 @@ body {
 }
 
 .participants-def .sources,
-.participants-def .recipients {
+.participants-def .recipients,
+h3 {
+  text-transform: uppercase;
+  color: #afb5c4;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.simParticipants ul {
+  height: 50px;
+  list-style: none;
+  padding-left: 0px;
+  margin: 0px;
+}
+
+.participants .sources,
+.participants .recipients {
   width: 45%;
 }
 
@@ -242,7 +337,7 @@ body {
 }
 
 .selector a.selected {
-  color: #46505C;
+  color: #46505c;
   background: #ffffff;
 }
 
@@ -260,7 +355,7 @@ body {
   width: 100%;
   text-transform: uppercase;
   font-weight: 600;
-  color: #46505C;
+  color: #46505c;
   margin-top: 8px;
 }
 
@@ -273,7 +368,6 @@ h4 {
 }
 
 input {
-
 }
 
 .simParticipants {
@@ -283,6 +377,10 @@ input {
 
 .simParticipants > div {
   width: 50%;
+}
+
+.money {
+  text-decoration: underline;
 }
 
 .payees .money {
@@ -297,7 +395,8 @@ input {
   display: none !important;
 }
 
-.participantValue, .participantOption {
+.participantValue,
+.participantOption {
   padding: 0 9px;
   border: solid 1px #e5e5e5;
   border-radius: 3px;
@@ -334,7 +433,8 @@ input {
   color: rgba(70, 80, 92, 0.53);
 }
 
-.participantValue .address, .participantOption span {
+.participantValue .address,
+.participantOption span {
   color: rgba(70, 80, 92, 0.53);
   font-size: 15px;
 }
@@ -367,7 +467,7 @@ input {
 .input-group input {
   display: block;
   width: 100%;
-  padding: .375rem .75rem;
+  padding: 0.375rem 0.75rem;
   height: 32px;
   font-size: 13px;
   /*font-size: 1rem;*/
@@ -378,7 +478,7 @@ input {
   /*background-image: none;*/
   /*background-clip: padding-box;*/
   border: 1px solid #ced4da;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   height: 48px;
   /*transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;*/
 }
@@ -391,7 +491,7 @@ input {
   height: 48px;
   display: block;
   width: 100%;
-  padding: .375rem .75rem;
+  padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
   color: #495057;
@@ -399,7 +499,7 @@ input {
   background-image: none;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   /*transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;*/
 }
 
@@ -421,7 +521,7 @@ input {
 .simulation {
   padding: 20px 40px;
 
-/*  width: 70px;
+  /*  width: 70px;
   height: 20px;
   font-family: SourceSansPro;
   font-size: 16px;
@@ -456,4 +556,62 @@ input {
   text-align: right;
   vertical-align:middle;
   height: 50px;
+.simulation .bigDate {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.simulation h2 {
+  margin-bottom: 5px;
+}
+
+.inputSlider {
+  margin-bottom: 30px;
+}
+
+.templates {
+  display: flex;
+  flex-direction: row;
+}
+
+.template {
+  margin-right: 20px;
+  background-color: #fff;
+  padding: 50px 20px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.template img {
+  height: 80px;
+  margin-bottom: 20px;
+}
+
+.template h3 {
+  text-transform: uppercase;
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+.template p {
+  font-size: 16px;
+  color: #888;
+}
+
+.selectorPage h1 {
+  text-transform: uppercase;
+  color: #222;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.selectorPage h2 {
+  text-transform: lowercase;
+  color: #222;
+  font-size: 30px;
+  font-weight: normal;
+  margin-bottom: 40px;
 }

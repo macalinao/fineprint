@@ -89,7 +89,7 @@ class InputSlider extends Component<ISProps, ISState> {
     }
 
     return (
-      <div>
+      <div className="inputSlider">
         <div className="sliderInfo">
           <p className="label">{input.name}</p>
           {value}
