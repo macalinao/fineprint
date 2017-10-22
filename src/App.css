@@ -69,7 +69,7 @@ body {
   left: 0;
   padding-top: 2rem;
   background-color: #f5f6fa;
-  color: #93A3BC;
+  color: #93a3bc;
   text-align: center;
 }
 .navbar {
@@ -89,4 +89,9 @@ body {
 .navbar .selected {
   border-bottom: 2px solid #4b80ff;
   color: #0f1b36;
+}
+
+.editorTab .selector a {
+  border: 1px solid #ccc;
+  padding: 10px;
 }
