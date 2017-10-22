@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import CodeEditor from "./CodeEditor";
 import Inputs from "./Inputs";
+import InputSliders from "./InputSliders";
 import "./App.css";
 import runContract from "./runContract";
 
@@ -20,6 +21,19 @@ class App extends Component<Props, State> {
       code: ""
     };
   }
+
+  inputs = [
+    {
+      name: "price",
+      inputType: "dollars",
+      value: 50.5
+    },
+    {
+      name: "quantity",
+      inputType: "number",
+      value: 100
+    }
+  ];
 
   fetchContractResults = () => {
     return runContract([], this.state.code);
@@ -42,6 +56,7 @@ class App extends Component<Props, State> {
           To get started, edit <code>src/App.js</code> and save to reload.
           <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
           <Inputs inputs={[]} />
+          <InputSliders inputs={this.inputs} />
         </p>
       </div>
     );

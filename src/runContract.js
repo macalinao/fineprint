@@ -1,12 +1,12 @@
 /* @flow */
 
-type Input = {
+export type Input = {
   name: string,
   inputType: "number" | "dollars" | "date",
   value: any
 };
 
-type Output = {
+export type Output = {
   name: string,
   value: number
 };
