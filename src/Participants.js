@@ -30,14 +30,22 @@ const SELECTIONS: Array<Selection> = [
 ];
 
 type Props = {
-  outputs: Array<Output>
+  outputs: Array<Output>,
+  addOutput: Output => void
 };
 
-const ParticipantOption = ({ option }: { option: Selection }) => {
+const ParticipantOption = ({
+  option,
+  onSelect
+}: {
+  option: Selection,
+  onSelect: any => void
+}) => {
   return (
-    <div className="participantOption">
-      <p>{option.name}</p>
-      <p>{option.address}</p>
+    <div className="participantOption" onClick={() => onSelect(option)}>
+      <p>
+        {option.name} <span>{option.address}</span>
+      </p>
     </div>
   );
 };
@@ -51,17 +59,45 @@ const ParticipantValue = ({ value }: { value: Selection }) => {
   );
 };
 
-const ParticipantSelector = ({ participant }: { participant: Output }) => {
+const ParticipantSelector = ({
+  participant,
+  onSelect
+}: {
+  participant: Output,
+  onSelect: any => void
+}) => {
   console.log(participant);
   return (
     <Select
-      onChange={e => console.log(e)}
+      onChange={onSelect}
       optionComponent={ParticipantOption}
       options={SELECTIONS}
       placeholder={SELECTIONS[0]}
       value={participant}
       valueComponent={ParticipantValue}
     />
+  );
+};
+
+const ParticipantList = ({
+  outputs,
+  addParticipant
+}: {
+  outputs: Array<Output>,
+  addParticipant: any => void
+}) => {
+  return (
+    <div>
+      {outputs.slice(0, outputs.length - 1).map(output => {
+        return <ParticipantValue value={output} />;
+      })}
+      <ParticipantSelector
+        participant={outputs[outputs.length - 1]}
+        onSelect={option => {
+          addParticipant(option);
+        }}
+      />
+    </div>
   );
 };
 
@@ -72,11 +108,32 @@ class Participants extends Component<Props> {
       <div className="participants">
         <div className="sources">
           <h2>Sources</h2>
-          <ParticipantSelector participant={outputs[0]} />
+          <ParticipantList
+            outputs={outputs.filter(o => o.outputType === "source")}
+            addParticipant={sel => {
+              this.props.addOutput({
+                name: sel.name,
+                address: sel.address,
+                outputType: "source",
+                value: 0
+              });
+            }}
+          />
         </div>
         <div className="arrow" />
         <div className="recipients">
           <h2>Recipients</h2>
+          <ParticipantList
+            outputs={outputs.filter(o => o.outputType === "recipient")}
+            addParticipant={sel => {
+              this.props.addOutput({
+                name: sel.name,
+                address: sel.address,
+                outputType: "recipient",
+                value: 0
+              });
+            }}
+          />
         </div>
       </div>
     );

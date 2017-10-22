@@ -170,12 +170,23 @@ class App extends Component<Props, State> {
     );
   }
 
+  _addOutput = (o: Output) => {
+    this.setState({
+      outputs: [...this.state.outputs, o]
+    });
+  };
+
   _renderEditor() {
     let tab = null;
     if (this.state.selectedEditorTab === "variables") {
       tab = this._renderVariables();
     } else {
-      tab = <Participants outputs={this.state.outputs} />;
+      tab = (
+        <Participants
+          outputs={this.state.outputs}
+          addOutput={this._addOutput}
+        />
+      );
     }
     return (
       <div className="row">
