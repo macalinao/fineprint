@@ -9,10 +9,24 @@ type Props = {
   inputs: Array<Input>
 };
 
+const renderValue = (input: Input): string => {
+  switch (input.inputType) {
+    case "dollars":
+      return `$${input.value.toFixed(2)}`;
+    case "number":
+      return input.value.toFixed(2);
+    default:
+      return input.value.toString();
+  }
+};
+
 const InputSlider = ({ input }: { input: Input }) => {
   return (
     <div>
-      <p>{input.name}</p>
+      <div className="sliderInfo">
+        <p className="label">{input.name}</p>
+        <p className="value">{renderValue(input)}</p>
+      </div>
       <Slider />
     </div>
   );

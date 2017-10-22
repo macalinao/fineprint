@@ -1,5 +1,6 @@
 body {
   background-color: #f5f6fa;
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .App {
@@ -18,6 +19,22 @@ body {
 
 .content > div {
   margin-right: 20px;
+}
+
+.sliderInfo {
+  display: flex;
+}
+
+.label {
+  color: #4f4f4f;
+  font-weight: bold;
+}
+
+.sliderInfo .value {
+  flex-grow: 1;
+  text-align: right;
+  color: #afb5c4;
+  font-weight: bold;
 }
 
 .simulation {
