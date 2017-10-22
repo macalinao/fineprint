@@ -32,7 +32,7 @@ const DEFAULT_CONTRACT = `
       }
     ]
   }
-`
+`;
 
 class App extends Component<Props, State> {
   constructor(props: Props) {
@@ -68,16 +68,17 @@ class App extends Component<Props, State> {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
+        <div className="container">
+          {/* <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
           <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
           <Inputs inputs={[]} />
-          <InputSliders inputs={this.inputs} />
-        </p>
+        </p> */}
+          <div className="content">
+            <InputSliders inputs={this.inputs} />
+            <div className="simulation"></div>
+          </div>
+        </div>
       </div>
     );
   }

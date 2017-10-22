@@ -19,7 +19,11 @@ const InputSlider = ({ input }: { input: Input }) => {
 };
 
 const InputSliders = ({ inputs }: Props) => {
-  return <div>{inputs.map(input => <InputSlider input={input} />)}</div>;
+  return (
+    <div className="inputSliders">
+      {inputs.map(input => <InputSlider input={input} />)}
+    </div>
+  );
 };
 
 export default InputSliders;
