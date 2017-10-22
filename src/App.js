@@ -15,7 +15,8 @@ type Props = {};
 type State = {
   code: string,
   inputs: Array<Input>,
-  selectedTab: string
+  selectedTab: string,
+  selectedEditorTab: string
 };
 
 const DEFAULT_CONTRACT = `
@@ -59,7 +60,8 @@ class App extends Component<Props, State> {
     this.state = {
       code: DEFAULT_CONTRACT,
       inputs: DEFAULT_INPUTS,
-      selectedTab: "simulation"
+      selectedTab: "simulation",
+      selectedEditorTab: "variables"
     };
   }
 
@@ -95,13 +97,60 @@ class App extends Component<Props, State> {
     });
   };
 
+  _renderVariables() {
+    return <Inputs inputs={this.state.inputs} />;
+  }
+
+  _renderParticipants() {
+    return <p>participants</p>;
+  }
+
+  _setEditorTab = (tab: string) => {
+    this.setState({
+      selectedEditorTab: tab
+    });
+  };
+
+  _renderEditorTabSelector() {
+    const { selectedEditorTab } = this.state;
+    return (
+      <div className="selector">
+        <a
+          onClick={() => this._setEditorTab("variables")}
+          className={
+            "variables " + selectedEditorTab === "variables" ? "selected" : ""
+          }
+        >
+          Variables
+        </a>
+        <a
+          onClick={() => this._setEditorTab("participants")}
+          className={
+            "participants " + selectedEditorTab === "participants"
+              ? "selected"
+              : ""
+          }
+        >
+          Participants
+        </a>
+      </div>
+    );
+  }
+
   _renderEditor() {
+    let tab = null;
+    if (this.state.selectedEditorTab === "variables") {
+      tab = this._renderVariables();
+    } else {
+      tab = this._renderParticipants();
+    }
     return (
       <div className="row">
+        <div className="editorTab">
+          {this._renderEditorTabSelector()}
+          {tab}
+        </div>
         <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
-        <Inputs inputs= {this.state.inputs} 
-        addInput = {this.addInput}
-        onRemove = {this.onRemove}/>
       </div>
     );
   }
@@ -111,6 +160,7 @@ class App extends Component<Props, State> {
       <div className="row">
         <InputSliders
           inputs={this.state.inputs}
+          onNewValue={this.onNewInputValue}
           onSliderChange={this.onSliderChange}
         />
         <div className="simulation" />
@@ -122,6 +172,19 @@ class App extends Component<Props, State> {
     const input = this.state.inputs.find(input => input.name === name);
     if (input && input.max) {
       input.value = value / 100 * input.max;
+    }
+    // weird force update
+    this.setState({
+      inputs: this.state.inputs
+    });
+  };
+
+  onNewInputValue = (name: string, value: any) => {
+    const input = this.state.inputs.find(input => input.name === name);
+    if (input) {
+      // TODO(igm): handle dates
+      input.value = value;
+      input.max = value * 2;
     }
     // weird force update
     this.setState({
