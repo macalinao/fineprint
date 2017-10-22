@@ -68,6 +68,7 @@ const ParticipantSelector = ({
       onChange={onSelect}
       optionComponent={ParticipantOption}
       options={selections}
+      searchable={false}
       value={participant}
       valueComponent={ParticipantValue}
     />
