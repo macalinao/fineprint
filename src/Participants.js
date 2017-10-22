@@ -29,11 +29,6 @@ const SELECTIONS: Array<Selection> = [
   }
 ];
 
-type Props = {
-  outputs: Array<Output>,
-  addOutput: Output => void
-};
-
 const ParticipantOption = ({
   option,
   onSelect
@@ -61,18 +56,18 @@ const ParticipantValue = ({ value }: { value: Selection }) => {
 
 const ParticipantSelector = ({
   participant,
+  selections,
   onSelect
 }: {
   participant: Output,
+  selections: Array<Selection>,
   onSelect: any => void
 }) => {
-  console.log(participant);
   return (
     <Select
       onChange={onSelect}
       optionComponent={ParticipantOption}
-      options={SELECTIONS}
-      placeholder={SELECTIONS[0]}
+      options={selections}
       value={participant}
       valueComponent={ParticipantValue}
     />
@@ -80,59 +75,96 @@ const ParticipantSelector = ({
 };
 
 const ParticipantList = ({
+  outputType,
   outputs,
-  addParticipant
+  addParticipant,
+  appendOutput
 }: {
+  outputType: "recipient" | "source",
   outputs: Array<Output>,
-  addParticipant: any => void
+  addParticipant: (string, ?Output) => void,
+  appendOutput: Output => void
 }) => {
-  return (
-    <div>
-      {outputs.slice(0, outputs.length - 1).map(output => {
+  const existing = outputs.map(o => o.address);
+  const allowed = SELECTIONS.filter(s => !existing.includes(s.address));
+
+  let list = null;
+  if (outputs.length !== 0) {
+    list = [
+      ...outputs.slice(0, outputs.length - 1).map(output => {
         return <ParticipantValue value={output} />;
-      })}
+      }),
       <ParticipantSelector
         participant={outputs[outputs.length - 1]}
+        selections={allowed}
         onSelect={option => {
-          addParticipant(option);
+          if (!option) {
+            addParticipant(outputType, null);
+            return;
+          }
+          addParticipant(outputType, {
+            name: option.name,
+            address: option.address,
+            outputType: outputType,
+            value: 0
+          });
         }}
       />
+    ];
+  }
+  return (
+    <div>
+      {list}
+      <button
+        onClick={() => {
+          if (allowed.length === 0) {
+            // none left
+            return;
+          }
+          const pick = allowed[0];
+          appendOutput({
+            name: pick.name,
+            address: pick.address,
+            outputType: outputType,
+            value: 0
+          });
+        }}
+      >
+        Add funding {outputType}
+      </button>
     </div>
   );
 };
 
+type Props = {
+  sourceOutputs: Array<Output>,
+  recipientOutputs: Array<Output>,
+  addOutput: (string, ?Output) => void,
+  appendOutput: Output => void
+};
+
 class Participants extends Component<Props> {
   render() {
-    const { outputs } = this.props;
+    const { sourceOutputs, recipientOutputs, appendOutput } = this.props;
     return (
       <div className="participants">
         <div className="sources">
           <h2>Sources</h2>
           <ParticipantList
-            outputs={outputs.filter(o => o.outputType === "source")}
-            addParticipant={sel => {
-              this.props.addOutput({
-                name: sel.name,
-                address: sel.address,
-                outputType: "source",
-                value: 0
-              });
-            }}
+            outputs={sourceOutputs}
+            outputType="source"
+            addParticipant={this.props.addOutput}
+            appendOutput={appendOutput}
           />
         </div>
         <div className="arrow" />
         <div className="recipients">
           <h2>Recipients</h2>
           <ParticipantList
-            outputs={outputs.filter(o => o.outputType === "recipient")}
-            addParticipant={sel => {
-              this.props.addOutput({
-                name: sel.name,
-                address: sel.address,
-                outputType: "recipient",
-                value: 0
-              });
-            }}
+            outputs={recipientOutputs}
+            outputType="recipient"
+            addParticipant={this.props.addOutput}
+            appendOutput={appendOutput}
           />
         </div>
       </div>
