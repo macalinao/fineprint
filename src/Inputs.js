@@ -16,14 +16,15 @@ const InputComponent = ({
 }) => {
   return (
     <div>
-      <input value={input.name}
+      <input className="inputName"
+      value={input.name}
       onChange= {(event) => onNameChange(input.name, event.target.value)}/>
-      <select name="categorySelect" value={input.inputType} onChange={(event) => onTypeChange(input.name, event.target.value)}>
-        <option>number</option>
-        <option>dollars</option>
-        <option>date</option>
+      <select className="categorySelect" value={input.inputType} onChange={(event) => onTypeChange(input.name, event.target.value)}>
+        {["number", "dollars", "date", "custom"].map((i) => {
+          return <option>{i}</option>
+        })}
       </select>
-      <button onClick={() => onRemove(input.name)}>Remove</button>
+      <button className="removeInput" onClick={() => onRemove(input.name)}>Remove</button>
     </div>
   );
 };
