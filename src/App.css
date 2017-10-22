@@ -25,13 +25,13 @@ body {
   display: flex;
 }
 
-.label {
+.sliderInfo .label {
   color: #4f4f4f;
   font-weight: bold;
+  flex-grow: 1;
 }
 
 .sliderInfo .value {
-  flex-grow: 1;
   text-align: right;
   color: #afb5c4;
   font-weight: bold;

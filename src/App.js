@@ -93,6 +93,7 @@ class App extends Component<Props, State> {
       <div className="row">
         <InputSliders
           inputs={this.state.inputs}
+          onNewValue={this.onNewInputValue}
           onSliderChange={this.onSliderChange}
         />
         <div className="simulation" />
@@ -104,6 +105,19 @@ class App extends Component<Props, State> {
     const input = this.state.inputs.find(input => input.name === name);
     if (input && input.max) {
       input.value = value / 100 * input.max;
+    }
+    // weird force update
+    this.setState({
+      inputs: this.state.inputs
+    });
+  };
+
+  onNewInputValue = (name: string, value: any) => {
+    const input = this.state.inputs.find(input => input.name === name);
+    if (input) {
+      // TODO(igm): handle dates
+      input.value = value;
+      input.max = value * 2;
     }
     // weird force update
     this.setState({
