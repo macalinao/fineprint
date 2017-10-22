@@ -10,6 +10,8 @@ import "./App.css";
 import runContract from "./runContract";
 import Navbar from "./Navbar";
 import Participants from "./Participants";
+import Highcharts from "highcharts";
+import ReactHighcharts from "react-highcharts";
 
 type Props = {};
 
@@ -24,13 +26,26 @@ type State = {
 
 const DEFAULT_CONTRACT = `
   var total = input.price * input.quantity;
+  
+  var commission = 0.05;
+  if (input.quantity > 10) {
+      commission += 0.02;
+  }
+  if (input.quantity > 50) {
+      commission += 0.03;
+  }
+  if (input.quantity > 100) {
+      commission += 0.05;
+  }
+  
   return {
     //inputs
-    'Andrew Tian': total * 0.05,
-    'R.C. Cola': total * 0.95,
+    'Andrew Tian': total * commission,
+    'R.C. Cola': total * (1 - commission),
     //outputs
     'Segment Inc': total
   }
+
 `;
 
 const DEFAULT_INPUTS = [
@@ -72,6 +87,55 @@ const DEFAULT_SOURCE_OUTPUTS = [
 const fmtMoney = (money: number) => {
   return "$" + (money || 0).toFixed(2);
 };
+
+class ParticipantPie extends Component<{ data: Array<*> }> {
+  render() {
+    const { data } = this.props;
+    return (
+      <ReactHighcharts
+        config={{
+          title: {
+            text: ""
+          },
+          chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: "pie"
+          },
+          tooltip: {
+            pointFormat: "<b>{point.percentage:.1f}%</b> (${point.y:.2f})"
+          },
+          plotOptions: {
+            pie: {
+              allowPointSelect: true,
+              cursor: "pointer",
+              size: "75%",
+              dataLabels: {
+                enabled: true,
+                format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+                style: {
+                  color:
+                    (Highcharts.theme && Highcharts.theme.contrastTextColor) ||
+                    "black"
+                }
+              }
+            }
+          },
+          series: [
+            {
+              name: "Share",
+              colorByPoint: true,
+              data: data
+            }
+          ]
+        }}
+        ref={"chart"}
+        style={{ width: "00%", height: "80%", position: "relative" }}
+      />
+    );
+  }
+}
 
 class App extends Component<Props, State> {
   constructor(props: Props) {
@@ -236,6 +300,20 @@ class App extends Component<Props, State> {
 
     const contractz = runContract(this.state.inputs, this.state.code);
 
+    const recipientPie = this.state.recipientOutputs.map(r => {
+      return {
+        name: r.name,
+        y: contractz[r.name]
+      };
+    });
+
+    const sourcePie = this.state.sourceOutputs.map(r => {
+      return {
+        name: r.name,
+        y: contractz[r.name]
+      };
+    });
+
     return (
       <div className="row">
         <InputSliders
@@ -250,6 +328,7 @@ class App extends Component<Props, State> {
           <div className="simParticipants">
             <div className="payees">
               <h3>Payees</h3>
+              <ParticipantPie data={recipientPie} />
               <ul>
                 {this.state.recipientOutputs.map(r => {
                   return (
@@ -265,6 +344,7 @@ class App extends Component<Props, State> {
             </div>
             <div className="payors">
               <h3>Payors</h3>
+              <ParticipantPie data={sourcePie} />
               <ul>
                 {this.state.sourceOutputs.map(r => {
                   return (
@@ -279,7 +359,6 @@ class App extends Component<Props, State> {
               </ul>
             </div>
           </div>
-          {JSON.stringify()}
         </div>
       </div>
     );
