@@ -47,9 +47,9 @@ const ParticipantOption = ({
 
 const ParticipantValue = ({ value }: { value: Selection }) => {
   return (
-    <div>
+    <div className="participantValue">
       <p>{value.name}</p>
-      <p>{value.address}</p>
+      <p className="address">{value.address}</p>
     </div>
   );
 };

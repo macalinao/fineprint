@@ -130,3 +130,8 @@ body {
   display: inline-block;
   position: "relative";
 }
+
+.participantValue .address {
+  color: #ccc;
+  margin: 0;
+}
