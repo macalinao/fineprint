@@ -40,6 +40,12 @@ class Inputs extends React.Component<Props, State> {
     };
   }
 
+  onAddNameChange = (ins: string) => {
+    this.setState({
+      inputName: ins
+    });
+  }
+
   render() {
     return (
       <div>
@@ -51,8 +57,9 @@ class Inputs extends React.Component<Props, State> {
           <input
             name="nameInput"
             value={this.state.inputName}
+            onChange={(event) => this.onAddNameChange(event.target.value)}
           />
-          <button onClick={this.props.addInput}> Add </button>
+          <button onClick={() => this.props.addInput({name: this.state.inputName, inputType: "number", value: 0.0, max: 0.0})}> Add </button>
         </div>
       </div>
     );

@@ -100,12 +100,18 @@ class App extends Component<Props, State> {
   };
 
   addInput = (input: Input) => {
-    this.state.inputs[this.state.inputs.length] = {
-      name: "",
-      inputType: "number",
-      value: 0.0,
-      max: 0.0
-    };
+    const inputIndex = this.state.inputs.findIndex(i => i.name === input.name);
+    if(inputIndex == -1) {
+      this.state.inputs[this.state.inputs.length] = {
+        name: input.name,
+        inputType: "number",
+        value: 0.0,
+        max: 0.0
+      };
+    }
+    else {
+      alert("There is a duplicate variable. Cannot add. ")
+    }
     this.forceUpdate();
   };
 
