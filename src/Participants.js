@@ -115,7 +115,7 @@ const ParticipantList = ({
   return (
     <div>
       {list}
-      <button
+      <button className="add-btn"
         onClick={() => {
           if (allowed.length === 0) {
             // none left
@@ -147,7 +147,7 @@ class Participants extends Component<Props> {
   render() {
     const { sourceOutputs, recipientOutputs, appendOutput } = this.props;
     return (
-      <div className="participants">
+      <div className="participants-def">
         <div className="sources">
           <h2>Sources</h2>
           <ParticipantList

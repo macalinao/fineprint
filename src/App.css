@@ -1,3 +1,53 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+
+
+
+
 body {
   background-color: #f5f6fa;
   font-family: "Source Sans Pro", sans-serif;
@@ -10,6 +60,7 @@ body {
 .container {
   width: 1000px;
   margin: 0px auto;
+  padding-top: 70px;
 }
 
 .row {
@@ -72,13 +123,14 @@ body {
   color: #93a3bc;
   text-align: center;
 }
+
 .navbar {
   display: flex;
   margin-bottom: 30px;
 }
 
 .navbar a {
-  padding: 5px 0px;
+  padding: 0 0 6px 0;
   margin-right: 40px;
   cursor: pointer;
   font-weight: bold;
@@ -87,39 +139,30 @@ body {
 }
 
 .navbar .selected {
-  border-bottom: 2px solid #4b80ff;
+  border-bottom: 3px solid #4b80ff;
   color: #0f1b36;
 }
 
-.editorTab {
-  background-color: #fff;
-  padding: 15px;
-  width: 50%;
-}
-
-.editorTab .selector a {
-  border: 1px solid #ccc;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.participants {
+.participants-def {
+  margin-top: 32px;
   display: flex;
   flex-direction: row;
 }
 
-.participants h2 {
+.participants-def h2 {
   text-transform: uppercase;
   color: #afb5c4;
   font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
 }
 
-.participants .sources,
-.participants .recipients {
+.participants-def .sources,
+.participants-def .recipients {
   width: 45%;
 }
 
-.participants .arrow {
+.participants-def .arrow {
   background-image: url("/andrews_arrow.png");
   width: 27px;
   height: 146px;
@@ -134,4 +177,103 @@ body {
 .participantValue .address {
   color: #ccc;
   margin: 0;
+}
+
+.editorTab {
+  padding: 30px 40px;
+
+  background-color: #fff;
+  width: 50%;
+}
+
+.editorTab div > h4 {
+  color: #9198a0;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.predefined-def {
+  margin: 36px 0 26px 0;
+  padding: 0 14px;
+  background: #f5f6fa;
+}
+
+.predefined-def h4 {
+  padding: 14px 0 10px 0;
+  border-bottom: 2px solid #ffffff;
+  color: #9198a0;
+  font-weight: bold;
+}
+
+.predefined-def ul li {
+  padding: 14px 0;
+}
+
+.predefined-def ul li h5 {
+  font-weight: bold;
+  color: #46505c;
+  margin-bottom: 5px;
+}
+
+.predefined-def ul li p {
+  color: #939aad;
+  font-size: 14px;
+}
+
+.predefined-def ul li span {
+  float: right;
+}
+
+.selector {
+  display: inline-flex;
+  border: 1px solid #e5e9f2;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.selector a {
+  padding: 14px 0;
+  width: 50%;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 117px;
+  text-align: center;
+  background: #f5f6fa;
+  color: #939aad;
+}
+
+.selector a.selected {
+  color: #46505C;
+  background: #ffffff;
+}
+
+.selector a:last-child {
+  border-left: 1px solid #e5e9f2;
+}
+
+.add-btn {
+  cursor: pointer;
+  font-size: 13px;
+  background: #f6f6f6;
+  border: 0;
+  border-radius: 2px;
+  padding: 12px 5px;
+  width: 100%;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #46505C;
+}
+
+.asdf {
+  background: #f2f2f2;
+}
+
+h4 {
+  text-transform: uppercase;
+}
+
+input {
+
 }

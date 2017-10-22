@@ -14,8 +14,11 @@ const InputComponent = ({
 }) => {
   return (
     <div>
-      <input value={input.name}
-      onChange= {(event) => onNameChange(input.name, event.target.value)}/>
+      <label>
+        Name:
+        <input value={input.name}
+          onChange= {(event) => onNameChange(input.name, event.target.value)}/>
+      </label>
       <button onClick={() => onRemove(input.name)}>Remove</button>
     </div>
   );
@@ -49,6 +52,17 @@ class Inputs extends React.Component<Props, State> {
   render() {
     return (
       <div>
+        <section className="predefined-def">
+          <h4>Predefined variables</h4>
+          <ul>
+            <li>
+              <h5>Date</h5>
+              <span>date</span>
+              <p>Current date of the year</p>
+            </li>
+          </ul>
+        </section>
+        <h4>Variables</h4>
         {this.props.inputs.map(input => (
           <InputComponent input={input} onRemove={this.props.onRemove} onNameChange={this.props.onNameChange}/>
         ))}

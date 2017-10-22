@@ -133,12 +133,14 @@ class App extends Component<Props, State> {
 
   _renderEditorTabSelector() {
     const { selectedEditorTab } = this.state;
+    console.log(selectedEditorTab);
+
     return (
       <div className="selector">
         <a
           onClick={() => this._setEditorTab("variables")}
           className={
-            "variables " + selectedEditorTab === "variables" ? "selected" : ""
+            "variables " + (selectedEditorTab === "variables" ? "selected" : "")
           }
         >
           Variables
@@ -146,9 +148,9 @@ class App extends Component<Props, State> {
         <a
           onClick={() => this._setEditorTab("participants")}
           className={
-            "participants " + selectedEditorTab === "participants"
+            "participants " + (selectedEditorTab === "participants"
               ? "selected"
-              : ""
+              : "")
           }
         >
           Participants
