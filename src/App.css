@@ -12,12 +12,12 @@ body {
   margin: 0px auto;
 }
 
-.content {
+.row {
   display: flex;
   flex-direction: row;
 }
 
-.content > div {
+.row > div {
   margin-right: 20px;
 }
 
@@ -63,6 +63,7 @@ body {
   height: 5px;
 }
 
+<<<<<<< HEAD
 .footer {
   position: absolute;
   right: 0;
@@ -72,3 +73,23 @@ body {
   background-color: #efefef;
   text-align: center;
 }
+=======
+.navbar {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.navbar a {
+  padding: 5px 0px;
+  margin-right: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 20px;
+  color: #afb5c4;
+}
+
+.navbar .selected {
+  border-bottom: 2px solid #4b80ff;
+  color: #0f1b36;
+}
+>>>>>>> c6f53c32b94ae38403cb001fd935083e2ae7bcbf
