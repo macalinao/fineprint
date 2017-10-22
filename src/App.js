@@ -416,6 +416,7 @@ class App extends Component<Props, State> {
     }
     return (
       <div className="App">
+        <div className="topnav"><img className = "logo" src="/logo.png"/><img className="notif" src="/notification.png"/><img className="jiandong" src="/jiandong.png"/></div>
         <div className="container">
           <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
           {view}
