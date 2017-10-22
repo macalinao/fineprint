@@ -15,19 +15,26 @@ const InputComponent = ({
   onTypeChange: (string, string) => void
 }) => {
   return (
-    <div>
-      <input className="inputName"
-      value={input.name}
-      onChange= {(event) => onNameChange(input.name, event.target.value)}/>
-      <select className="categorySelect" value={input.inputType} onChange={(event) => onTypeChange(input.name, event.target.value)}>
-        {["number", "dollars", "date", "custom"].map((i) => {
-          return <option>{i}</option>
-        })}
-      </select>
-      <button className="removeInput" onClick={() => onRemove(input.name)}>Remove</button>
+    <div className="input-group">
+      <div className="col">
+        <input className="inputName"
+          value={input.name}
+          onChange= {(event) => onNameChange(input.name, event.target.value)} />
+        <span>{input.name}</span>
+      </div>
+      <div className="col">
+        <select className="categorySelect" value={input.inputType} onChange={(event) => onTypeChange(input.name, event.target.value)}>
+          {["number", "dollars", "date", "custom"].map((i) => {
+            return <option>{i}</option>
+          })}
+        </select>
+      </div>
     </div>
   );
 };
+
+//       <button className="removeInput" onClick={() => onRemove(input.name)}>Remove</button>
+
 
 type Props = {
   inputs: Array<Input>,
