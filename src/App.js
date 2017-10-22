@@ -152,17 +152,24 @@ class App extends Component<Props, State> {
 
   makeTransaction = () => {
     let dat = {
-      "to": "tejas",
-      "amount": 4000,
-      "from": "ian"
-    }, headers = {
-      "Content-Type": "application/json",
-      "charset": "utf-8"
-    };
+      body: {
+        "to": "tejas",
+        "amount": 4000,
+        "from": "ian"
+      },
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "charset": "utf-8"
+      }
+    }
 
-    let bDat = new Blob([JSON.stringify(dat)], {type: "application/json"});
+    // let bDat = new Blob([JSON.stringify(dat)], {type: "application/json"});
 
-    fetch("localhost:5000/transactions", bDat).then((response) => {
+    // console.log(JSON.stringify(dat));
+
+    fetch("http://62c437b5.ngrok.io/transactions", dat).then((response) => {
+      console.log("1");
       if(response.ok) {
         return response.blob();
       }
