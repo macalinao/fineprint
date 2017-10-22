@@ -3,6 +3,24 @@
 import React from "react";
 import type { Input } from "./runContract";
 
+type InputCompProps = {
+  input: Input,
+  onRemove: string => void
+}
+
+type InputCompState = {
+  input: Input
+}
+
+class InputComponent extends Component<InputCompProps, InputCompState> {
+  constructor(props: InputCompProps) {
+    super(props);
+    this.state = {
+      
+    }
+  }
+}
+
 const InputComponent = ({
   input,
   onRemove
@@ -12,7 +30,10 @@ const InputComponent = ({
 }) => {
   return (
     <div>
-      <h3>{input.name}</h3>
+      <input value={input.name}
+      onChange= {(event) => {
+        input.name = event.target.value;
+      }}/>
       <button onClick={() => onRemove(input.name)}>Remove</button>
     </div>
   );

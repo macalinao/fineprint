@@ -80,7 +80,7 @@ class App extends Component<Props, State> {
       name: "",
       inputType: "number",
       value: 0.0,
-      max: -1
+      max: 0.0
     };
     this.forceUpdate();
   }
