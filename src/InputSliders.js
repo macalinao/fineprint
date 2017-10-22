@@ -44,25 +44,27 @@ class InputSlider extends Component<ISProps, ISState> {
   };
 
   _onEditChange = (elt: any) => {
-    let newValue = elt.target.value;
+    this.setState({
+      newValue: elt.target.value
+    });
+  };
+
+  _onEditDone = () => {
+    let newValue = this.state.newValue;
     switch (this.props.input.inputType) {
       case "dollars":
       case "number":
         newValue = parseFloat(newValue);
         if (isNaN(newValue)) {
-          return;
+          newValue = null;
         }
     }
     this.setState({
-      newValue: newValue
-    });
-  };
-
-  _onEditDone = () => {
-    this.setState({
       editing: false
     });
-    this.props.onNewValue(this.props.input.name, this.state.newValue);
+    if (newValue) {
+      this.props.onNewValue(this.props.input.name, newValue);
+    }
   };
 
   render() {
