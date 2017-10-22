@@ -556,6 +556,8 @@ input {
   text-align: right;
   vertical-align:middle;
   height: 50px;
+}
+
 .simulation .bigDate {
   font-size: 26px;
   font-weight: bold;
