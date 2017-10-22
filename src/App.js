@@ -3,7 +3,7 @@
 import type { Input, Output } from "./runContract";
 import React, { Component } from "react";
 import logo from "./logo.svg";
-import CodeEditor from "./CodeEditor";
+import { CodeEditor, CodeEditor2 } from "./CodeEditor";
 import Inputs from "./Inputs";
 import InputSliders from "./InputSliders";
 import "./App.css";
@@ -23,7 +23,8 @@ type State = {
   sourceOutputs: Array<Output>,
   recipientOutputs: Array<Output>,
   selectedTab: string,
-  selectedEditorTab: string
+  selectedEditorTab: string,
+  switched: boolean
 };
 
 const DEFAULT_CONTRACT = `
@@ -155,7 +156,8 @@ class App extends Component<Props, State> {
       recipientOutputs: DEFAULT_RECIPIENT_OUTPUTS,
       sourceOutputs: DEFAULT_SOURCE_OUTPUTS,
       selectedTab: "selector",
-      selectedEditorTab: "variables"
+      selectedEditorTab: "variables",
+      switched: false
     };
   }
 
@@ -313,6 +315,19 @@ class App extends Component<Props, State> {
 
   _renderEditor() {
     let tab = null;
+
+    let codeSwitch = () => {
+      return !this.state.switched ? (
+        <CodeEditor2 code={this.state.code} onChange={this.onCodeChange} />
+      ) : (
+        <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
+      );
+    };
+
+    let _switchCodeview = () => {
+      this.setState({ switched: !this.state.switched });
+    };
+
     if (this.state.selectedEditorTab === "variables") {
       tab = this._renderVariables();
     } else {
@@ -331,7 +346,10 @@ class App extends Component<Props, State> {
           {this._renderEditorTabSelector()}
           {tab}
         </div>
-        <CodeEditor code={this.state.code} onChange={this.onCodeChange} />
+        <div className="cswitch">
+          <a onClick={_switchCodeview}>Switch</a>
+        {codeSwitch()}
+        </div>
       </div>
     );
   }

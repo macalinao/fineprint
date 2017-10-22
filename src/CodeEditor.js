@@ -12,7 +12,7 @@ type Props = {
   onChange: string => void
 };
 
-const CodeEditor2 = (props: Props) => {
+export const CodeEditor2 = (props: Props) => {
   return (
     <div className="ce2">
       <div className="statement">
@@ -82,7 +82,7 @@ const CodeEditor2 = (props: Props) => {
   );
 };
 
-const CodeEditor = ({ code, onChange }: Props) => {
+export const CodeEditor = ({ code, onChange }: Props) => {
   return (
     <AceEditor
       mode="javascript"
@@ -94,5 +94,3 @@ const CodeEditor = ({ code, onChange }: Props) => {
     />
   );
 };
-
-export default CodeEditor2;
