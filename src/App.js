@@ -14,11 +14,31 @@ type State = {
   code: string
 };
 
+const DEFAULT_CONTRACT = `
+  function(price, quantity) {
+    var total = price * quantity;
+    return [
+      {
+        name: 'bob',
+        value: total * 0.05
+      },
+      {
+        name: 'segment',
+        value: total * 0.95
+      },
+      {
+        name: 'client',
+        value: -total
+      }
+    ]
+  }
+`
+
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      code: ""
+      code: DEFAULT_CONTRACT
     };
   }
 
