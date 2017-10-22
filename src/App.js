@@ -481,11 +481,20 @@ class App extends Component<Props, State> {
     }
     return (
       <div className="App">
-        <div className="topnav"><img className = "logo" src="/logo.png"/><img className="notif" src="/notification.png"/><img className="jiandong" src="/jiandong.png"/></div>
-        <div className="container">
-          <Navbar selectedTab={this.state.selectedTab} setTab={this.setTab} />
-          {view}
+        <div className="topnav">
+          <div className="containert">
+            <div className="topnavRow">
+              <div className="leftPart">
+                <img className="logo" src="/logo.png" />
+              </div>
+              <div className="rightPart">
+                <img className="notif" src="/notification.png" />
+                <img className="jiandong" src="/jiandong.png" />
+              </div>
+            </div>
+          </div>
         </div>
+        <div className="container">{view}</div>
         <div className="footer">Powered by MasterCard Blockchain</div>
       </div>
     );
