@@ -115,7 +115,7 @@ class ParticipantPie extends Component<{ data: Array<*> }> {
             pie: {
               allowPointSelect: true,
               cursor: "pointer",
-              size: '75%',
+              size: "75%",
               dataLabels: {
                 enabled: true,
                 // distance: -15,
@@ -494,7 +494,6 @@ class App extends Component<Props, State> {
 
   _renderDiff() {
     const diff = JsDiff.diffLines(this.state.oldCode, this.state.code);
-    console.log(diff);
     return (
       <div className="diffPage">
         <div className="s4r">
