@@ -27,5 +27,9 @@ export default function runContract(
       .toString()
       .split(".")[1];
   // $FlowFixMe
-  return new Function("input", code)(inputObj) || {};
+  try {
+    return new Function("input", code)(inputObj) || {};
+  } catch (e) {
+    return {};
+  }
 }
