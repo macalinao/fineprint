@@ -196,6 +196,7 @@ class App extends Component<Props, State> {
         onRemove={this.onRemove}
         addInput={this.addInput}
         onNameChange={this.onNameChange}
+        onTypeChange={this.onTypeChange}
       />
     );
   }
@@ -397,6 +398,14 @@ class App extends Component<Props, State> {
     this.state.inputs[inputIndex].name = newName;
     this.forceUpdate();
   };
+
+  onTypeChange = (inName: string, newType: string) => {
+    const inputIndex = this.state.inputs.findIndex(
+      input => input.name === inName
+    );
+    this.state.inputs[inputIndex].inputType = newType;
+    this.forceUpdate();
+  }
 
   render() {
     let view = null;

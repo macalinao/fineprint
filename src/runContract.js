@@ -2,7 +2,7 @@
 
 export type Input = {
   name: string,
-  inputType: "number" | "dollars" | "date",
+  inputType: "number" | "dollars" | "date" | "custom",
   value: any,
   max: ?any
 };

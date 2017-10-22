@@ -6,20 +6,25 @@ import type { Input } from "./runContract";
 const InputComponent = ({
   input,
   onRemove,
-  onNameChange
+  onNameChange,
+  onTypeChange
 }: {
   input: Input,
   onRemove: string => void,
-  onNameChange: (string, string) => void
+  onNameChange: (string, string) => void,
+  onTypeChange: (string, string) => void
 }) => {
   return (
     <div>
-      <label>
-        Name:
-        <input value={input.name}
-          onChange= {(event) => onNameChange(input.name, event.target.value)}/>
-      </label>
-      <button onClick={() => onRemove(input.name)}>Remove</button>
+      <input className="inputName"
+      value={input.name}
+      onChange= {(event) => onNameChange(input.name, event.target.value)}/>
+      <select className="categorySelect" value={input.inputType} onChange={(event) => onTypeChange(input.name, event.target.value)}>
+        {["number", "dollars", "date", "custom"].map((i) => {
+          return <option>{i}</option>
+        })}
+      </select>
+      <button className="removeInput" onClick={() => onRemove(input.name)}>Remove</button>
     </div>
   );
 };
@@ -28,7 +33,8 @@ type Props = {
   inputs: Array<Input>,
   addInput: Input => void, // adds an input to the input list
   onRemove: string => void, // takes in input name and removes it
-  onNameChange: (string, string) => void
+  onNameChange: (string, string) => void,
+  onTypeChange: (string, string) => void
 };
 
 type State = {
@@ -64,7 +70,7 @@ class Inputs extends React.Component<Props, State> {
         </section>
         <h4>Variables</h4>
         {this.props.inputs.map(input => (
-          <InputComponent input={input} onRemove={this.props.onRemove} onNameChange={this.props.onNameChange}/>
+          <InputComponent input={input} onRemove={this.props.onRemove} onNameChange={this.props.onNameChange} onTypeChange={this.props.onTypeChange}/>
         ))}
         <div>
           <p>Add Input:</p>
