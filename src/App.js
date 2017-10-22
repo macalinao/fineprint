@@ -150,6 +150,28 @@ class App extends Component<Props, State> {
     };
   }
 
+  makeTransaction = () => {
+    let dat = {
+      "to": "tejas",
+      "amount": 4000,
+      "from": "ian"
+    }, headers = {
+      "Content-Type": "application/json",
+      "charset": "utf-8"
+    };
+
+    let bDat = new Blob([JSON.stringify(dat)], {type: "application/json"});
+
+    fetch("localhost:5000/transactions", bDat).then((response) => {
+      if(response.ok) {
+        return response.blob();
+      }
+      throw new Error("Network response not ok");
+    }).then((myBlob) => {
+      console.log(URL.createObjectURL(myBlob));
+    });
+  }
+
   fetchContractResults = () => {
     return runContract([], this.state.code);
   };
@@ -324,6 +346,7 @@ class App extends Component<Props, State> {
           onSliderChange={this.onSliderChange}
         />
         <div className="simulation">
+          <button onClick={this.makeTransaction}> Send Funds </button>
           <h2>Summary</h2>
           <p className="bigDate">{fmt}</p>
 
