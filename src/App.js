@@ -228,9 +228,8 @@ class App extends Component<Props, State> {
         <a
           onClick={() => this._setEditorTab("participants")}
           className={
-            "participants " + (selectedEditorTab === "participants"
-              ? "selected"
-              : "")
+            "participants " +
+            (selectedEditorTab === "participants" ? "selected" : "")
           }
         >
           Participants
@@ -326,7 +325,7 @@ class App extends Component<Props, State> {
         />
         <div className="simulation">
           <h2>Summary</h2>
-          <p>{fmt}</p>
+          <p className="bigDate">{fmt}</p>
 
           <div className="simParticipants">
             <div className="payees">
@@ -405,7 +404,7 @@ class App extends Component<Props, State> {
     );
     this.state.inputs[inputIndex].inputType = newType;
     this.forceUpdate();
-  }
+  };
 
   render() {
     let view = null;

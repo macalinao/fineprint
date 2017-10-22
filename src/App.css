@@ -451,3 +451,13 @@ input {
   text-align: left;
   color: #9198a0;*/
 }
+
+.simulation .bigDate {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.simulation h2 {
+  margin-bottom: 5px;
+}
