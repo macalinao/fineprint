@@ -1,7 +1,8 @@
 from mastercardapicore import RequestMap, Config, APIException, OAuthAuthentication
 import os
 from mastercardblockchain import *
-
+from server.messages_pb2 import Transaction
+import base64
 
 def compute_balance(addr):
 	responseList = Block.listByCriteria()
@@ -17,14 +18,14 @@ def get_status():
 
 def create_transaction(tx):
 	s = tx.SerializeToString()
-	print tx
+	print type(s)
 	_create_entry(s)
 
 def _create_entry(value):
 	mapObj = RequestMap()
 	mapObj.set("app", "TX67")
 	mapObj.set("encoding", "base64")
-	mapObj.set("value", value.encode('base64'))
+	mapObj.set("value", base64.b64encode(value))
 
 	response = TransactionEntry.create(mapObj)
 	return response.get("hash")

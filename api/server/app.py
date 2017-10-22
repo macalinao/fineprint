@@ -7,18 +7,18 @@ app = Flask(__name__)
 
 @app.route('/transaction', methods=['POST'])
 def create_transaction():
-    print("hello")
     content = request.get_json()
     tx = Transaction()
     tx.fromAddr = content['from']
     tx.toAddr = content['to']
     tx.amount = content['amount']
     blockchain.create_transaction(tx)
+    return 'kek'
 
 @app.route('/status')
 def status():
     blockchain.get_status()
-    return 'hello'
+    return 'kek'
 
 
 def main():
