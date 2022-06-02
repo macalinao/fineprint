@@ -22,7 +22,7 @@
     "async": "^2.5.0",
     "mastercard-blockchain": "0.0.1",
     "prompt": "^1.0.0",
-    "protobufjs": "^6.8.0",
+    "protobufjs": "^6.11.3",
     "yargs": "^9.0.1"
   }
 }
